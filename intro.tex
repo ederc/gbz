@@ -1,0 +1,51 @@
+\section{Introduction}
+\label{sec:intro}
+In 1965~\cite{bGroebner1965, bGroebner1965eng}, Buchberger initiated the theory
+of \gbs by which many fundamental problems in mathematics, science
+and engineering can be solved algorithmically. Specifically he introduced some key
+structural theory, and based on
+this theory, proposed the first algorithm for computing \gbs.
+Buchberger's algorithm introduced the concept of critical pairs and repeatedly carries out a certain
+polynomial operation (called reduction).
+
+Many of those reductions would be
+determined as ``useless'' (i.e. no contribution to the output of the algorithm),
+but only a posteriori, that is, after an (often expensive) reduction process.
+Thus intensive research was carried out, starting with Buchberger, to avoid the
+useless reductions via a priori criteria, see,  for
+example,~\cite{bGroebnerCriterion1979,buchberger2ndCriterion1985,gmInstallation1988}.
+
+About Gr\"obner bases over the integers there is some more recent work by
+Lichtblau \cite{lichtblau2012} considering theoretical aspects and applications.
+\todo[inline]{write introduction for upcoming stuff, depends on normal form
+  section}
+
+% V
+% In~\cite{fF52002Corrected} \jcf presented the \Ffive algorithm which uses
+% signatures in order to detected redundant computations in advance. For regular
+% sequences as input \Ffive does not compute any zero reduction at all. Over the
+% years many new variants of \sigb \gb algorithms have been presented, we refer
+% to~\cite{eder-faugere-2016} for a survey on this class of algorithms. All these
+% algorithms have in common that they compute \gbs in polynomial rings over
+% fields.
+%
+% %Assuming the integers as ground ring,  \gb computations change in the way that
+% %one wants
+% Over rings, one needs stronger conditions to
+% to compute a so-called strong \gbs. Such a basis is achieved by not only
+% handling usual critical pairs consisting of \spts, but also so-called \gpts (see for
+% example ~\cite{Wienand2011, lichtblau2012}). In 1988, Kandri-Rody and Kapur
+% gave first algorithms for computing \gbs over Euclidean
+% domains~\cite{kapur1988}.
+%
+% Here we generalize \sigb \gb algorithms to computation over Euclidean rings, in
+% particular, the integers. In Section~\ref{sec:notation} we introduce basics and
+% notation. Sections~\ref{sec:criteria} --~\ref{sec:sigdrops} discuss problems and
+% possible solutions when computing over Euclidean rings. In particular, we
+% present the problem of signature drops and how to keep them at a minimum.
+% Moreover, techniques for improving coefficient growth and other computational
+% overhead are given.
+% In Section~\ref{sec:hybrid} we show how \sigb computation can be
+% efficiently used as a prereduction step for a classical \gb computation over
+% Euclidean rings and give experimental results in Section~\ref{sec:timings}.
+% Section~\ref{sec:finite-rings} covers problems over rings with zero divisors.

@@ -1,0 +1,58 @@
+\section{Computational results}
+\label{sec:results}
+In this section we present the new implementation for standard basis computation
+over $\Z$ in \singular. We compare it to the current implementations in the
+computer algebra systems \macaulay and \magma. For the comparison we use
+benchmarks with different properties and behaviours. All examples are computed
+with respect to the degree reverse lexicographical order.
+
+\begin{table}[h]
+	\centering
+	% \renewcommand{\tabcolsep}{3mm}
+  \def\arraystretch{1.2}
+  %\scalebox{0.75}{
+  % \vspace*{-3mm}
+    \begin{tabular}{c||r|r|r|r}
+    \toprule
+    \multicolumn{1}{c||}{\textbf{Examples $\setminus$ CAS}} &
+    \multicolumn{1}{c|}{\singular} &
+    \multicolumn{1}{c|}{\singular} &
+    \multicolumn{1}{c|}{\macaulay} &
+    \multicolumn{1}{c}{\magma}\\
+    \midrule
+    Cyclic-6 & & & & $2.799$\\
+    Cyclic-7 & $21,731.820$ & $20,961.320$ & & $366.060$\\[0.2em]
+    Katsura-7 & & & & $251.630$\\
+    Katsura-8 & & & & ($>24$h)\\
+    Katsura-9 & $14,954.590$ & $14,954.160$ & ($>24$h) & ($>24$h)\\[0.2em]
+    Eco-9 & & $5.250$ & & $22.520$\\
+    Eco-10 & & $55.680$ & & $289.540$\\[0.2em]
+    Noon-7 & & $36.690$ & &\\
+    Noon-8 & & $2,614.140$ & &\\[0.2em]
+    Lichtblau & & $2.320$ & & $2,242.900$\\[0.2em]
+    Gametwo-7 & & & &$5,340,760$\\[0.2em]
+    Bayes-148 & & & &\\[0.2em]
+    Butcher-83 & & & &\\[0.2em]
+    Jason-210 & & $61.990$ & & ($>24$h)\\
+    \bottomrule
+    \end{tabular}
+	\caption{Benchmark timings given in seconds}
+	\label{table:syz-example}
+\end{table}
+
+We can see that \singular's new implementation is always faster than \macaulay.
+Comparing it to \magma we see that \magma is way faster for \texttt{Cyclic-7}.
+We assume that this is due to \magma using Faug\`ere's F4
+algorithm~(\cite{fF41999}): Our implementation considers less \spts and \gpts, but
+the reduction steps in higher degree are way slower than the linear algebra done
+in \magma. Still, in most of the other examples \singular is by a
+huge factor faster than \magma, too.
+
+For \singular we can see that generating all possible \spts and \gpts or only
+the ones needed, recall Theorem~\ref{thm:buchberger-criterion}, does not have a
+bigger influence on the computation. The main speed up lies in a faster
+application of the product and the chain criteria since there are less pairs
+generated which are then removed. On the other hand: Sometimes good reducers
+are entered to $G$ later with this attempt. Since the most time for computing
+standard bases over $\Z$ is consumed by the reduction steps and not the
+criteria application, the impact is quite small.

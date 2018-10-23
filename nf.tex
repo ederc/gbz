@@ -1,0 +1,305 @@
+\section{Normal Form Computations}
+\label{sec:nf}
+Let us recall Definition~\ref{def:reduction} and give the two different
+types of a reduction step a name:
+
+\begin{definition}
+Let $f \in \epr$ and let $G \subset \epr$ be a finite subset.
+\begin{enumerate}
+\item If there exists $g\in G$ such that $\hm g \mid \hm f$ and $\lc g \mid \lc
+f$ then $f - \frac{\lc f}{\lc g} \frac{\hm f}{\hm g} g$ is a \emph{top-\ltr} of
+$f$ (w.r.t. $g$).
+\item If there exists $g\in G$ such that $\hm g \mid \hm f$, $\lc g \prec \lc f$ and $\lc g \nmid \lc
+f$ then $f - a \frac{\hm f}{\hm g} g$ with $\lc f = a\, \lc g + b$ where $a,b
+\in \Z$, $b \neq 0$ amd $b \prec \lc f$ is a \emph{top-\lcr} of $f$ (w.r.t. $g$).
+\end{enumerate}
+\end{definition}
+
+First we can note that it is enough to consider \ltrs since \lcrs are taken care
+of when generating new pairs:
+
+\begin{lemma}
+\label{lem:ltrs-are-enough}
+Algorithm~\ref{alg:bba} terminates and computes a correct strong \stb for a
+given set of geneators and a given momonmial order if we change the
+corresponding normal form algorithms to consider only \ltrs.
+\end{lemma}
+
+\begin{proof}
+We need to show that \lcrs are considered when adding new \gpts to the pair set
+$P$. Assume $h$ is the outcome of an \ltr. If there exist possible \lcrs for $h$
+w.r.t. $G$ then there is a $g \in G$ such that $\hm g \mid \hm h$, $\lc g
+\nmid \lc h$ and $\lc h \nmid \lc g$. Thus $\gpoly h g$ is generated:
+\[\gpoly h g = a h + b t g\]
+where $a, b \in \Z$ such that $\gcd\left(\lc h, \lc g\right) = a \lc f + b \lc
+g$ and $t = \frac{\hm h}{\hm g}$. Now we distinguish two cases:
+\begin{enumerate}
+\item\label{first-case} If $a=1$ then $\gpoly h g = h - b t g$ which is exactly the corresponding
+\lcr of $h$ w.r.t. $g$.
+\item If $a \neq 1$ then the \lcr of $h$ w.r.t. $g$, $h' = h - ctg$ for some
+$c\in \Z, t\in\epr$, coresponds to the first step
+of the Euclidean algorithm calculating $\gcd\left(\lc h, \lc g\right)$. If there
+is no further reduction of $h'$ then Algorithm~\ref{alg:bba} generates a corresponding
+\gpt between $h'$ and $g$. It follows that
+\[h - ctg + \gpoly {h'} g = \gpoly h g.\]
+If $h'$ is further reducible by some $g' \in G$ then we note the following:
+First of all $g' \in G\setminus \{g\}$ since $\lc g \succ \lc{h'}$ thus there
+cannot exist a \ltr or \lcr of $h'$ w.r.t. $g$. Now the reduction of $h'$ by
+$g'$ is given as
+\[h' - c't'g' = h - ctg - c't'g'\]
+for some $c' \in \Z$ and $t' \in \epr$. Since $\hm h = \hm{tg} = \hm{t'g'}$ we
+conclude that $ctg + c't'g'$ corresponds to a multiple of either $\spoly
+{g}{g'}$ or $\gpoly {g}{g'}$ depending on divisibility of $\lc g$ and $\lc{g'}$.
+Nonetheless, once we have a standard representation for $\spoly{g}{g'}$ or
+$\gpoly{g}{g'}$ we can reset $h$ by $h - ctg - c't'g'$. Either the lead term or
+the lead coefficient of $h$ increases in this process. Thus after finitely many
+steps this process terminates and we reach either case~(\ref{first-case}) or
+there is no further \lcr reduction possible.
+\end{enumerate}
+\end{proof}
+
+This was the usual way \singular implemented standard basis reduction over the
+integers. Clearly, this is due to historical reasons where the implementation
+over $\Z$ was only thought of as a slight generalization of the computation
+over fields.
+
+\begin{example}
+Recall Example~\ref{ex:local-order} from Section~\ref{sec:notation}: If we
+allow only \ltrs when reducing $h = 4+x$ w.r.t. the strong \stb $G = \left\{2-x+y+x^2,
+x-2y-x^2-xy-x^3\right\}$ then we get the following reduction table with $T_h =
+G$ at the beginning.\begin{table}[h]
+  \centering
+  % \renewcommand{\tabcolsep}{3mm}
+  \def\arraystretch{1.2}
+  %\scalebox{0.75}{
+  % \vspace*{-3mm}
+    \begin{tabular}{c|c|c}
+    \toprule
+    \multicolumn{1}{c|}{$h$} &
+    \multicolumn{1}{c|}{$g$} &
+    \multicolumn{1}{c}{$h$ \emph{added to} $T_h$?}\\
+    \midrule
+    $4+x$ & $2-x+y+x^2$ & \checkmark\\
+    $3x-2y-2x^2$ & $x-2y-x^2-xy-x^3$ & \checkmark \\
+    $4y+x^2+3xy+3x^3$ & $4+x$ & - \\
+    $x^2+2xy+3x^3$ & $x-2y-x^2-xy-x^3$ & \checkmark \\
+    $4xy+4x^3+x^2y+x^4$ & $4+x$ & - \\
+    $4x^3+x^4$ & $4+x$ & -\\
+    $0$ & - & -\\
+    \bottomrule
+    \end{tabular}
+    \vspace*{5mm}
+  \caption{Only \ltrs used in Mora normal form}
+  \label{table:infinite-nf-only-lcrs}
+\end{table}
+
+If we compare it to Table~\ref{table:infinite-nf} we see one more reduction step
+introduced by choosing $x-2y-x^2-xy-x^3$ as reducer in the second reduction
+step, since \lcrs are not allowed.
+\end{example}
+
+% \todo[inline]{Is it always possible with reduction defined as in
+% Definition~\ref{def:reduction} that we first do the lead term reductions and
+% then the lead coefficient reductions?}
+Note that Lemma~\ref{lem:ltrs-are-enough} shows that \lcrs are, from the
+theoretical point of view, not needed. A \lcr corresponds
+to a first step in the Euclidean algorithm when calculating $\gcd\left(\lc f, \lc
+g\right)$ which will be done in the algorithm when considering $\gpoly fg$.
+Still, it has a strong impact on the performance of the algorithm in practice:
+Cutting the lead coefficient down as much as possible means that the element
+might be used more often for reduction purposes. Moreover, generating new \spts
+and \gpts with it leads to lower lead coefficients there. In some sense \lcrs are
+the bridge between an \ltr of $f$ by $g$ and the $\gpoly fg$. In one specific
+situation we can go directly from one to another, without the need of a bridge. 
+Lemma~\ref{lem:ltrs-are-enough} also gives a hint to this situation stated in
+the following.
+\footnote{This idea is also implemented in the computer algebra system
+\macaulay~\cite{macaulay}. We have discovered it independently and since we have not
+found any proof for the statement we give one here.}
+during the reduction process over the integers.
+\begin{lemma}
+Let $f \in \epr$, $G \subset \epr$ finite and $g\in G$ such that
+$\hm g = \hm f$. Then it holds that
+\[\left\langle f,g\right\rangle
+  = \left\langle \spoly fg, \gpoly fg\right\rangle.\]
+  \label{lem:m2-replace-trick}
+\end{lemma}
+
+\begin{proof}
+Let $u,v, d \in \Z$ such that
+\begin{equation}
+u\, \lc f + v\, \lc g = d = \gcd\left(\lc f, \lc g\right).
+\label{eq:gcd}
+\end{equation}
+We can then write
+\begin{center}
+$
+\begin{array}[]{rcccccc}
+\gpoly fg &= & u& f& + &v& g.\\
+\spoly fg &=& \frac{\lc g}{d}& f& - &\frac{\lc f}{d}&g.
+\end{array}
+$
+\end{center}
+In order to show the statement we have to proof that $(f,g)$ and $\left(\gpoly fg,
+\spoly fg\right)$ generate the same $\Z$-lattice. So, in the above
+representation of $\gpoly fg$ and $\spoly fg$ in terms of $f$ and $g$ we have to
+show that the corresponding coefficient matrix is invertible, i.e. has
+determinante $\pm 1 \in \Z$:
+To see this we set
+\[M := \begin{pmatrix} u & v\\ \frac{\lc g}{d} & -\frac{\lc
+  f}{d}\end{pmatrix}.\]
+Finally, we compute
+\[\det\left(M\right) = - u\, \frac{\lc f}{d}
+- v\, \frac{\lc g}{d} = -\frac 1d \left(u\, \lc f + v\, \lc g\right)
+  \stackrel{(\ref{eq:gcd})}{=} -1.\]
+\end{proof}
+
+How to use Lemma~\ref{lem:m2-replace-trick} in \bba ? The idea is that whenever
+we reduce a new element $f$ we check if there exists a reducer $g\in G$ with
+$\hm f = \hm g$, but $\lc g \nmid \lc f$. In this situation we do a $2$-by-$2$
+replacement:
+\begin{enumerate}
+\item Compute $\gpoly fg$ and replace $g\in G$ by $\gpoly fg \in G$. Clearly,
+already genrated pairs with $g$ as generator have to adjusted respectively.
+\item Compute $\spoly fg$ and replace $f$ by $\spoly fg$. Note that we have not
+changed the degree of $f$, but probably only multiplied $f$ with some
+coefficient. With the newly defined $f$ we again enter the reduction process and
+see, if we can further reducer it.
+\end{enumerate}
+This has two main advantages to the usual reduction process that would compute
+only an \lcr of $f$ w.r.t. $g$:
+\begin{enumerate}
+\item We directly compute the \gpt of $f$ and $g$
+whereas the before mentioned \lcr would represent only one step in the Euclidean
+algorithm for reaching $\gpoly fg$. So we can directly replace $g$ with
+$\gpoly fg$ which leads to smaller coefficients and multiples during the pair
+generation. Furthermore, $\gpoly fg$ reduces other elements at least in all
+situations $g$ would reduce, but it can possibly fulfill more \ltrs due to its
+smaller lead coefficient. 
+\item For $f$ the advantage is that we are not stuck with a \lcr only, but we
+can go on and perform the \ltr $\spoly fg$ and thus directly lower the lead term
+without the need of adding $f$ to the basis, which would blowi up pair
+generation.
+\end{enumerate}
+
+\begin{remark} \
+\begin{enumerate}
+\item Note that $\hm f = \hm g$ is an essential condition for the correctness of
+Lemma~\ref{lem:m2-replace-trick}. If, for example, only $\hm g \mid \hm f$
+holds such that $\lambda = \frac{\hm f}{\hm g} > 1 \in \epr$, then we can only
+recover $f$ and $\lambda g$ via $\spoly fg$ and $\gpoly fg$, but we are no
+longer able to recover $g$.
+\item  Overall applying \lcrs has a huge effect on running time: In most examples we
+    get a speedup factor of $3$. If we even apply coefficient reductions to the
+    tail terms of the newly added element to the basis, we get another factor of
+    $3-5$.
+% \item Lemma~\ref{lem:m2-replace-tricks} cannot be applied as often as \lcrs, but
+% it helps in several ways:
+% \begin{enumerate}
+% \item We directly get the smallest possible lead coefficient for $f$ and $g$ and
+%     not only a slightly reduced one.
+% \item We can get rid of a lot of \spats and \gpats since we get as lead
+% coefficient the gcd of $\lc f$ and $\lc g$ which helps the chain criterion to
+% remove useless data.
+% \end{enumerate}
+\end{enumerate}
+\end{remark}
+
+When we enter the reduction process of an element $f$ in \bba we search for
+reducers in the following order:
+\begin{enumerate}
+\item Is there $g \in G$ for a \ltr of $f$? If so we can cut down the lead
+term of $f$ without the need of multiplying $f$ with any coefficient $\neq 1$.
+\item Is there are $g \in G$ fulfilling Lemma~\ref{lem:m2-replace-trick}? If so
+we can cut down the lead term of some coefficient multiple of $f$ and we can
+further replace $g$ by $\gpoly fg$ leading to a better reducer.
+\item Is there $g \in G$ for a \lcr of $f$? We cannot cut down the lead term of
+$f$, but at least we can reduce the lead coefficient before adding $f$ to $G$
+and generating new \spts and \gpts.
+\end{enumerate}
+
+% Over fields the concept of a top-reduction is a special case of an \spt
+% construction: Instead of multiplying $f$ and $g$ to reach and to cancel out
+% $\lcm\left(\hd f, \hd g\right)$ the process is restricted to removing $\hd f$.
+% This means that we need $g$ such that $\hd g \mid \hd f$:
+% \[\spoly f g =  1 \cdot f - \frac{\hd f}{\hd g} g = f - \frac{\hd f}{\hd g} g.\]
+% Over the integers, Definition~\ref{def:reduction} does not completely mimic this
+% situation: Even for \spts the concept is not complete: Over fields divisibility
+% of the coefficients is a symmetric problem: If $a \in K\setminus\{0\}$ then also
+% $\frac{1}{a} \in K\setminus\{0\}$. Over the integers this symmetry is broken,
+% but Definition~\ref{def:reduction} does not recover it correctly: We cannot
+%   compute a reduction of the form $a f - tg$ where $a \in \Z$, $t \in \epr$ and
+% $t \cdot \hm g = \hm f$, $\lc
+% g \nmid \lc f$, \emph{but} $\lc f \mid \lc g$ such that $a \cdot \lc f= \lc g$.
+% Still, this reduction takes place namely as an \spt $\spoly f g$ that is
+% generated once $f$ is added to the intermediate basis. Still, we do not need $f$
+% in the basis at all. Even more, Definition~\ref{def:reduction} includes \lcrs: If $\hm g \mid
+% \hm f$ but $\lc g \nmid \lc f$ and $\lc f \nmid \lc g$ then we can do a division with rest on the lead
+% coefficient of f: Find $a,b \in \Z$ such that $ \lc f = a \lc g +b$ where $a,b
+% \neq 0$ and $b \prec \lc f$. Let $h$ be the element resulting from the
+% corresponding top-reduction step
+% \[h := f - a \frac{\hm f}{\hm g} g.\]
+% Then $\hm h = \hm f$ and $\lc h = b$. The problem is that this does not
+% correspond to $\gpoly f g$:
+% \[h' :=\gpoly f g = c f - d \frac{\hm f}{\hm g} g\]
+% such that $\gcd\left(\lc f, \lc g\right) = c\,\lc f - d\,\lc g$ and thus $\hm{h'}
+% = \hm f = \hm h$ but $\lc{h'} = \gcd\left(\lc f, \lc g\right)$ which is in
+% general not the same as $\lc h$. Take, for example, $\lc f = 44$ and $\lc g = 10$
+% then $\lc h = 44-4\cdot 10 = 4$ whereas $\lc{h'} = \gcd\left(44,10\right) = 2$.
+% The problem is that we the top-reduction process from
+% Definition~\ref{def:reduction} we will not reach $h'$ in this example: Once we
+% reached $h$ we would not apply another reduction with $g$: $\hm g \mid \hm h$,
+% but $\lc h = 4 = 1 \cdot 10 - 6$ thus $b \succ \lc h$ which is not allowed due to
+% Definition~\ref{def:reduction}. But don't we need to reach $h'$ in order to
+% compute a strong \stb? Yes, and we would reach it after having added $h$ to the
+% intermediate basis and considering the \gpt $\gpoly g h$ later on. This is
+% exactly what Lemma~\ref{lem:ltrs-are-enough} tells us. Still,
+% this introduces useless overhead, bloating up the basis and the pair set.
+%
+% Thus we propose new kinds of reduction steps:
+%
+% \begin{definition}
+% Let $f \in \epr$ and let $G \subset \epr$ be a finite subset.
+% \begin{enumerate}
+% \item If there exists $g\in G$ such that $\hm g \mid \hm f$ and
+% either $\lc g \mid \lc f$ or $\lc f \mid \lc g$ then $af - btg$ with
+% $(a,b)\in \{1\} \times \Z$ or $(a,b) \in \Z \times \{1\}$ is called a
+% \emph{top-\sltr} of $f$ (w.r.t. $g$).
+% \item If there exists $g\in G$ such that $\hm g \mid \hm f$, $\lc g \nmid \lc
+% f$ and $\lc f \nmid \lc g$ then $af + b \frac{\hm f}{\hm g} g$ with $\gcd\left(\lc f, \lc g\right) =
+% a\,\lc f + b\,\lc g$, $a,b \in \Z$, $b \neq 0$ amd $b \prec \lc f$ is a
+% \emph{top-\gcdr} of $f$ (w.r.t. $g$).
+% \item A top-reduction which allows top-\sltr steps as well as top-\gcdr steps is
+% called \emph{strong} or a \sr.
+% \end{enumerate}
+% \end{definition}
+%
+% From Lemma~\ref{lem:ltrs-are-enough} we can easily deduce the following
+% statement:
+%
+% \begin{corollary}
+% Instead of top-reductions defined by Definition~\ref{def:reduction} we can use
+% strong reductions in the normal form algorithms~\ref{alg:nfg} and~\ref{alg:nfl}.
+% Applying these normal form algorithms in Algorithm~\ref{alg:bba} we compute a
+% strong \stb for a given input ideal w.r.t. the given monomial order.
+% \end{corollary}
+
+% \begin{lemma}
+% Let $G \subset \epr$ be a finite subset and let $f \in \epr$.
+% If there is no \ltr for $f$ w.r.t. $G$ then there is no \ltr for $f'$ w.r.t. $G$
+% where $f'$ is the result of finitely many \lcrs w.r.t. $G$ starting with $f$.
+% \label{lem:ltr-lcr}
+% \end{lemma}
+%
+% \begin{proof}
+% If there does not exist any further \ltr for $f$ w.r.t. $G$ then we have to
+% distinguish two cases:
+% \begin{enumerate}
+% \item If $\nexists g \in G$ such that $\hm g \mid \hm f$ then there also does
+% not exist any \lcr of $f$ and the whole top-reduction process of $f$ w.r.t. $G$
+% is done.
+% \item If $\exists g \in G$ such that $\hm g \mid \hm f$ then $\lc g \nmid \lc f$
+% as otherwise $g$ would perform an \ltr with $f$. If $\lc g \nmid \lc f$ then we
+% can set $a = \gcd\left(\lc f, \lc g\right)$ and we compute a corresponding
+% \end{enumerate}<++>
+% \end{proof}<++>

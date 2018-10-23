@@ -1,0 +1,381 @@
+\section{Basic notations}
+\label{sec:notation}
+% We use notation corresponding to~\cite{eder-faugere-2016}:
+Let \er be a Euclidean domain without zero divisors.\footnote{The reader can
+    feel fre to think of $\er = \Z$.}
+% Besides Section~\ref{sec:finite-rings} we assume that \er has no
+% zero divisors.
+A \emph{polynomial}
+in $n$ variables $x_1,\ldots,x_n$ over \er is a finite \er-linear
+combination of \emph{terms} $\const_{v_1,\ldots,v_n} \prod_{i=1}^n
+x_i^{v_i}$,
+$f=\sum_{v}\const_v x^v \defeq
+\sum_{v\in\N^n}^{\text{finite}}\const_{v_1,\ldots,v_n} \prod_{i=1}^n
+x_i^{v_i}$,
+such that $v \in \N^n$ and $\const_v \in \er$.
+The \emph{polynomial ring} $\epr \defeq \er[x] \defeq \er[x_1,\ldots,x_n]$
+in $n$ variables over $\er$ is the set of all polynomials over $\er$
+together with the usual addition and multiplication. For $f=\sum_{v}\const_v
+x^v \neq 0 \in\epr$ we define \emph{the degree of $f$} by $\deg(f) :=
+\max\left\{v_1+\cdots +v_n \mid \const_v \neq 0\right\}$. For $f=0$ we set
+$\deg(f):=
+-1$.
+% For $m>0$ we denote by $\module$ a \emph{free $\er$-module} and let $\mgen$ be
+% the standard basis (unit vectors) in $\module$.
+% A \emph{module element} $\alpha\in \module$ can be written as a finite sum
+% $\alpha=\sum_{a \in \epr}^{\text{finite}}a\mbasis i$.
+% The elements $a\mbasis i$ are the \emph{module terms} of
+% $\alpha$. A \emph{module monomial} is an element of $\module$ with exactly
+% one term. A module monomial with coefficient 1 is
+% \emph{monic}. Neither module monomials nor terms of module elements
+% are necessarily monic. Let $\alpha\simeq\beta$ for
+% $\alpha,\beta\in \module$ if $\alpha=\const \beta$ for some non-zero $\const
+% \in\er$.
+%
+
+Let $\ip f \in \epr$ be a finite sequence of polynomials. We define a module
+homomorphism $\pi : \module \rightarrow \epr$ by $\mbasis i \mapsto f_i$ for
+all $1\leq i \leq \numberGenerators$. We use the shorthand notation $\proj\alpha
+\defeq \pi(\alpha) \in \epr$ for $\alpha \in \module$. An element $\alpha \in
+\module$ with $\proj\alpha = 0$ is called a \emph{syzygy}. The module of all
+syzygies (of $\langle f_1,\ldots, f_m\rangle$) is denoted $\syz{\langle
+  f_1,\ldots, f_m\rangle}$.
+
+In the following we discuss computation with respect to different monomial orders:
+\begin{definition}
+Let $<$ denote a monomial order on \epr. 
+\begin{enumerate}
+\item $<$ is called \emph{global} if $x^\alpha \geq 1$ for all $\alpha \in \N^n$.
+\item $<$ is called \emph{local} if $x^\alpha \leq 1$ for all $\alpha \in \N^n$.
+\item Moreover, we call $<$ \emph{mixed} if there exist $\alpha, \beta \in \N^n$ such
+that $x^\alpha \leq 1 \leq x^\beta$.
+\end{enumerate}
+\end{definition}
+% \begin{convention}
+% In this paper we restrict ourselves to the \emph{po\-si\-tion-over-term order} on
+% $\module$: Let $<$ be a monomial order on $\epr$ and let $a e_i, b e_j$ be two module
+% monomials in $\module$. Then we define $\potl$ via
+% $a e_i \potl b e_j \text{ if and only if either }i < j \text{ or }i = j \text{
+%   and }a < b.$
+% Moreover, if not otherwise noted, we assume $<$ to denote the \emph{degree reverse
+%   lexicographical order} on \epr.
+% \end{convention}
+Given such a monomial order $<$ we can highlight the maximal terms of
+elements in \epr w.r.t. $<$: For $f\in \epr\ \backslash\ \{0\}$,
+$\hd f$ is the \emph{lead term}, $\hm f$ the \emph{lead monomial}, and $\lc f$
+the \emph{lead coefficient} of $f$. For any set $F \subset \epr$ we define
+the \emph{lead ideal} $L(F) = \langle \hd f \mid f \in F\rangle$; for an ideal
+$I \subset \epr$,\  $L(I)$ is defined as the ideal of lead terms of all elements of
+$I$. Moreover, we define the \emph{ecart} of $f$ by $\ecart f := \deg(f) -
+\deg\left(\hm f\right)$. 
+% For $\alpha \in \module\ \backslash\ \{0\}$ we
+% denote the maximal term w.r.t. $<$ by $\sig\alpha$, the \emph{signature of
+% $\alpha$}. We also define signatures of polynomials: For $f\in \epr$, $\sig f$
+% is \emph{a} signature of $f$, given by the signature of the corresponding module
+% element $\alpha\in\module$ mapping to $f$: $\sig f = \sig{\proj\alpha} =
+% \sig\alpha$. Note that whereas $\sig\alpha$ is uniquely defined, $\sig f$ is not
+% since there exist different module elements with different signatures that map
+% to $f$.
+
+Working over a field there are many equivalent definitions of how to obtain a
+canonical or normal form when reducing a given polynomial by a Gr\"obner basis $G$.
+Working over more general rings these definitions are no longer equivalent and
+over Euclidean domains, like the integers, this, in particular, results in the term
+of \emph{strong}ness we give a meaning in the following:
+
+Assuming that our coefficient ring \er is an Euclidean domain we can define a total
+order $\prec$ using the Euclidean norm $|\cdot|$ of its elements: Let $\const_1, \const_2
+\in \er$, then $\const_1 \prec \const_2 \text{ if } |\const_1 | < | \const_2 |.$
+%\mid \text{ (ties broken corespondingly)}.\]
+For example, for the integers we can use the absolute value and break ties via
+sign:
+\[0\prec -1 \prec 1 \prec -2 \prec 2 \prec -3 \prec 3 \prec \ldots \]
+
+The reduction process of two polynomials $f$ and $g$ in \epr depends now on the
+uniqueness of the minimal remainder in the division algorithm in \er:
+
+\begin{definition}
+\label{def:reduction}
+Let $f, g \in \epr$ and let $G= \{g_1,\ldots,g_r\} \subset \epr$ be a finite set of
+polynomials.
+\begin{enumerate}
+\item We say that \emph{$g$ top-reduces $f$} if $\hm g \mid \hm f$ and if there exist
+$a,b \in \er$ such that $\lc f = a\, \lc g +b$ such
+that $a \neq 0$, which coincides with $b \prec \lc f$. The top-reduction of $f$
+by $g$ is then given by
+\[f - a \frac{\hm f}{\hm g} g.\]
+So a top-reduction takes place if the reduced polynomial will have either a smaller lead
+mononmial or a smaller lead coefficient.
+\item Relaxing the reduction of the lead term to any term of $f$, we say
+that \emph{$g$ reduces $f$}. In general, we speak of the reduction of a
+polynomial $f$ w.r.t. a finite set $F\subset \epr$.
+Let 
+\item We say that $f$ has a \emph{weak standard representation} w.r.t. $G$ if
+$f = \sum_{i=1}^r h_i g_i$ for some $h_i \in \epr$ such that $\hm f = \hm{h_j
+  g_j}$ for some $j \in \{1,\ldots,r\}$.
+\item We say that $f$ has a \emph{strong standard representation} w.r.t. $G$ if
+$f = \sum_{i=1}^r h_i g_i$ for some $h_i \in \epr$ such that $\hm f = \hm{h_j
+  g_j}$ for some $j \in \{1,\ldots,r\}$ and $\hm f > \hm{h_k g_k}$ for all $k
+  \neq j$.
+\end{enumerate}
+\end{definition}
+
+This kind of reduction is equivalent to CP3 from~\cite{kapur1988} and generalizes
+Buchberger's attempt from~\cite{buchberger2ndCriterion1985}.
+
+The result of such a reduction might not be unique. This uniqueness is exactly
+the property \emph{\stbs} give us. Before defining \stbs, let us give a short note on
+the naming convention in this paper:
+
+\begin{convention}
+Note that the term \emph{\gb} was introduced by Buchberger in 1965 for bases
+w.r.t. a global monomial order. Independently, Hironaka developed an analgous
+concept, called \emph{\stb}, for multivariate power series, i.e. for polynomial
+rings equipped with a local monomial order. For this paper we decided to use
+the notion \emph{\stb} since it is nowadays the more general one.
+\end{convention}
+
+\begin{definition}
+\label{def:strong-sb}
+A finite set $G \subset \epr$ is called a \emph{\stb} for an ideal $I$ w.r.t.
+a monomial order $<$ if $G \subset I$ and $L(G) = L(I)$. Furthermore, $G$ is called a
+\emph{strong \stb}
+% \footnote{Note that in the area of \sigb algorithms the notion
+% of a \emph{strong \gb} is sometimes also used in a different manner, see, for example,
+%    \cite{gvwGVW2015,eder-faugere-2016}.}
+   if for any $f \in I\backslash\{0\}$ there exists a $g\in G$
+such that $\hd g \mid \hd f$. 
+\end{definition}
+
+\begin{remark}
+Note that $G$ being a strong \stb is equivalent to all elements $g \in G$ having
+a strong standard representation w.r.t. $G$. See, for
+example, Theorem~1 in~\cite{lichtblau2012} for a proof.
+\end{remark}
+
+Clearly, assuming the field case, any \stb is a strong \stb. But in our setting
+with \er being an Euclidean ring one has to check the coefficients, too, as
+explained in Definition~\ref{def:reduction}.
+
+\begin{example}
+\label{ex:stronggb}
+Let $\er = \Z$ and $I= \langle x \rangle \in \er[x]$. Clearly, $G :=
+\{2x,3x\}$ is a \stb for $I$: $L(I) = \langle x \rangle$ and $x = 3x-2x \in
+L(G)$. But $G$ is not a strong \stb for $I$ since $2x \nmid
+x$ and $3x \nmid x$.
+\end{example}
+
+In order to compute strong \stbs we need to consider two different types of
+special polynomials:
+
+\begin{definition}
+\label{def:spoly}
+Let $f,g \in \epr$. We assume w.l.o.g. that $\lc f \prec \lc g$.
+Let $t = \lcm\left(\hm f, \hm g\right)$, $t_f = \frac{t}{\hm f}$, and.$t_g = \frac{t}{\hm
+  g}$.
+\begin{enumerate}
+\item Let $a = \lcm\left(\lc f, \lc g\right)$, $a_f = \frac{a}{\lc g},$ and $a_g =
+\frac{a}{\lc f}$. The \emph{\spt} of $f$ and $g$ is denoted 
+\[\spoly f g = a_f t_f f - a_g t_g g.\]
+\item Let $b = \gcd\left(\lc f, \lc g\right)$ . Choose $b_f, b_g \in \er$ such that $b = b_f \lc f + b_g \lc
+g$.\footnote{Since $\er = \Z$ is an Euclidean ring the extended gcd always exists.}
+The \emph{\gpt} of $f$ and $g$ is denoted 
+\[\gpoly f g = b_f t_f f + b_g t_g g.\]
+\end{enumerate}
+\end{definition}
+
+\begin{remark} \
+\label{rem:gpairs}
+\begin{enumerate}
+\item In the field case we do not need to consider \gpts at all since we can
+always normalize the polynomials, i.e. ensure that $\lc f = 1$.
+\item Note that $\gpoly f g$ is not uniquely defined: Working over $\er = \Z$ we
+know that we can write $\langle \lc f, \lc g \rangle$ as a principal ideal, say
+$\langle c \rangle = \langle \lc f, \lc g \rangle$ for some $c\in\er$. Then
+there exist $c_f \neq c_f'$, $c_g \neq c_g' \in \er$ such that
+\[c_f \lc f + c_g \lc g = c = c_f' \lc f + c_g' \lc g.\]
+Depending on the implementation of the $\gcd$ algorithm one specific choice is
+made for each \gpt.
+% \item Furthermore, if $\lc f \mid \lc g$ then $b_f
+% = 1 $ and $b_g = 0$, thus $\gpoly f g$ is just a power product multiple of $f$.
+% Thus, in a \stb computation it reduces to zero and is redundant.
+\end{enumerate}
+\end{remark}
+
+From Example~\ref{ex:stronggb} it is clear that the usual Buchberger
+algorithm as in the field case will not compute a strong \stb as we would only
+consider $\spoly{2x}{3x} = 3 \cdot 2x - 2 \cdot 3x = 0$. Luckily, we
+can fix this via taking care of the corresponding \gpt:
+\[\gpoly{2x}{3x} = (-1) \cdot 2x - (-1) \cdot 3x = x.\]
+It follows that given an ideal $I \subset \epr$ a strong \stb for $I$ can now be computed using
+Buchberger's algorithm taking care not only of \spts but also of \gpts. We refer,
+for example,  to~\cite{lichtblau2012} for more details.
+
+In Algorithm~\ref{alg:bba} we give pseudo code for a generic Buchberger
+algorithm over the integers. Here, no criterion for detecting useless elements
+is applied. This is the topic of the next section. But what is necessary to
+discuss beforehand is how to get strong standard representations of elements
+handled by Algorithm~\ref{alg:bba}. This is the concept of a \emph{normal
+form}:
+
+\begin{definition}
+Let $<$ be a monomial order on $\epr$.
+Let $\mathcal G$ denote the set of all finite subsets $G \subset \epr$. We call
+the map
+\begin{center}
+$
+\begin{array}{rccc}
+\text{\sffamily{NF}}: &\epr \times \mathcal G &\longrightarrow& \epr\\
+                     & (f, G) &\longmapsto& \nf f G,
+\end{array}
+$
+\end{center}
+a \emph{weak normal form} w.r.t. $<$ if for all $f\in \epr$ and all $G \in
+\mathcal G$ the following hold:
+\begin{enumerate}
+\item $\nf 0 G = 0$.
+\item If $\nf f G \neq 0$ then $\hd{\nf f G} \notin L(G)$.
+\item If $f \neq 0$ then there exists a unit $u\in \epr$ such that either
+$uf = \nf f G$ or
+$r = uf - \nf f G$ has a strong standard representation w.r.t. $G$.
+\end{enumerate}
+A weak normal form {\sffamily NF} is called a \emph{normal form} if we can always
+choose $u=1$.
+\end{definition}
+
+Next we give algorithms that compute normal forms. For their correctness we
+refer to Section~$1.6$ in~\cite{gpSingularBook2007}. Algorithm~\ref{alg:nfg}
+presents a normal form algorithm for computation w.r.t. a global monomial order
+$<$:
+
+\begin{algorithm}
+\caption{Normal form w.r.t. a global monomial order $<$
+  (\nfn)} 
+\label{alg:nfg}
+\begin{algorithmic}[1]
+\Require{Polynomial $f \in \epr$, finite subset $G\subset \epr$}
+\Ensure{\nfn of $f$ w.r.t. $G$ and $<$}
+\State{$h \gets f$}
+\While{$\left(h \neq 0 \text{ and }G_h := \{g \in G \mid g \text{ top-reduces } h\}
+  \neq\emptyset\right)$}
+\State{Choose $g \in G_h$.}
+\State{$h\gets $ Top-reduction of $h$ by $g$ (see
+    Definition~\ref{def:reduction})}
+\EndWhile
+\State{$\text{\textbf{return }}h$}
+\end{algorithmic}
+\end{algorithm}
+
+Note that Algorithm~\ref{alg:nfg} may enter an infinite \texttt{while} loop if applied
+to local monomial orders. Let us illustrate this behaviour with the ``standard''
+example. 
+
+\begin{example}
+Let $\epr = K[x]$ where $K$ is a field. We equip $\epr$ with a local monomial
+order $<$, i.e. $x < 1$. We set $G = \{g\}$ where $g=x-x^2$ and we want to
+compute $\nf f G$ where $f = x$. Using Algorithm~\ref{alg:nfg} we start setting
+$h := f$ and find that $g$ top-reduces $h$:
+\[h := x - \left(x-x^2\right) = x^2.\]
+Now we can again top-reduce $h$ via subtracting $xg$:
+\[h := x^2 - x\left(x-x^2\right) = x^3.\]
+This process does not stop, but constructs a power series equation
+\[x - \left(\sum_{i=0}^\infty x^i\right) \left(x-x^2\right) = 0.\]
+Since $x<1$ we know that $\sum_{i=0}^\infty x^i = \frac{1}{1-x}$. We see that
+Algorithm~\ref{alg:nfg} computes correctly since $(1-x) x = x-x^2$,
+still, it is not able to find the finite expression of the power series.
+\end{example}
+
+In~\cite{mora82} Mora gave the first attempt to achieve a terminating normal
+form algorithm also for local monomial orders:
+
+
+\begin{algorithm}
+\caption{Mora's normal form algorithm w.r.t. a local monomial order $<$
+  (\nfn)} 
+\label{alg:nfl}
+\begin{algorithmic}[1]
+\Require{Polynomial $f \in \epr$, finite subset $G\subset \epr$}
+\Ensure{\nfn of $f$ w.r.t. $G$ and $<$}
+\State{$h \gets f$}
+\State{$T \gets G$}
+\While{$\left(h \neq 0 \text{ and }T_h := \{g \in G \mid g \text{ top-reduces } h\}
+  \neq\emptyset\right)$}
+\State{Choose $g \in T_h$ with $\ecart g$ minimal.}
+\If{$\left(\ecart g > \ecart h\right)$}
+\State{$T \gets T \cup \{h\}$}
+\EndIf
+\State{$h\gets $ Top-reduction of $h$ by $g$ (see
+    Definition~\ref{def:reduction})}
+\EndWhile
+\State{$\text{\textbf{return }}h$}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{example}
+\label{ex:local-order}
+Let $\epr = \Z[x,y]$. A strong \stb for the ideal $I=\left\langle 6+y+x^2,
+4+x\right\rangle \subset \epr$ w.r.t. negative degree reverse
+lexicographical order $<$ is given by
+\[G = \left\{2-x+y+x^2, x-2y-x^2-xy-x^3\right\}.\]
+Since $4+x \in I$ we assume that $\nf {4+x} G = 0$. In
+Table~\ref{table:infinite-nf} we state Mora's normal form computation
+with notation as in Algorithm~\ref{alg:nfl}, i.e. if we have a choice for the
+reducer, we take the one of minimal possible ecart.
+We start with $h=4+x$ and $T_h =
+G$.
+\begin{table}[h]
+	\centering
+	% \renewcommand{\tabcolsep}{3mm}
+  \def\arraystretch{1.2}
+  %\scalebox{0.75}{
+  % \vspace*{-3mm}
+    \begin{tabular}{c|c|c}
+    \toprule
+    \multicolumn{1}{c|}{$h$} &
+    \multicolumn{1}{c|}{$g$} &
+    \multicolumn{1}{c}{$h$ \emph{added to} $T_h$?}\\
+    \midrule
+    $4+x$ & $2-x+y+x^2$ & \checkmark\\
+    $3x-2y-2x^2$ & $4+x$ & - \\
+    $-x -2y - 3x^2$ & $x-2y-x^2-xy-x^3$ & \checkmark\\
+    $-4y - 4x^2 - xy - x^3$ & $4+x$ & -\\
+    $- 4x^2 - x^3$ & $4+x$ & -\\
+    $0$ & - & -\\
+    \bottomrule
+    \end{tabular}
+		\vspace*{5mm}
+	\caption{Local normal form computation due to Mora}
+	\label{table:infinite-nf}
+\end{table}
+
+Note the importance of $4+x$ being added to $T_h$. Without $4+x$ as reducer the
+reduction process would not terminate.
+\end{example}
+
+Now we are ready to state Buchberger's algorithm. For the theoretical background
+of the algorithm (Buchberger's criterion) we refer to
+Theorem~\ref{thm:buchberger-criterion} in Section~\ref{sec:pairs}.
+
+\begin{algorithm}
+\caption{Buchberger's algorithm for computing strong \stbs over the integers
+  (\sbba)} 
+\label{alg:bba}
+\begin{algorithmic}[1]
+\Require{Ideal $I=\langle f_1,\ldots,f_m\rangle \subset \epr$, monomial order
+  $<$, normal form algorithm \nfn (depending on $<$)}
+\Ensure{\gb $G$ for $I$ w.r.t. $<$}
+\State{$G \gets \{f_1,\ldots,f_m\}$}
+\State{$P \gets \left\{\spoly{f_i}{f_j}, \gpoly{f_i}{f_j} \mid 1 \leq i < j \leq
+  m\right\}$}\label{alg:bba:update1}
+\While{$\left(P \neq \emptyset\right)$}
+\State{Choose $h \in P$, $P \gets P \setminus \{h\}$}\label{alg:bba:choose}
+\State {$h \gets \nf h G$}
+\If{$\left(h \neq 0\right)$}
+\State{$P \gets \left\{\spoly{g}{h}, \gpoly{g}{h} \mid g \in
+  G\right\}$}\label{alg:bba:update2}
+\State{$G \gets G \cup \{h\}$}
+\EndIf
+\EndWhile
+\State{$\text{\textbf{return }}G$}
+\end{algorithmic}
+\end{algorithm}

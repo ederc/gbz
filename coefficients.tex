@@ -1,0 +1,181 @@
+\section{Avoiding Coefficient Swell}
+\label{sec:coefficients}
+One main problem when computing over the integers is coefficient growth. We
+cannot normalize polynomials as usually done over fields. The only method to
+keep at least lead coefficients as small as possible from inside the algorithm
+is to efficiently compute \gpts as discussed in Section~\ref{sec:pairs}.
+
+The first idea to handle coefficient swell might be to use modular methods as
+done over fiels, see, for example,~\cite{arnoldModular2003}. Sadly this concept
+is not working over the integers:
+
+\begin{example}
+Let $I = \langle 6x, 8x \rangle \subset \Z[x]$. A strong \stb w.r.t. a global
+monomial order $<$ is $G = \{2x,6x,8x\}$ where $2x = \gpoly{8x}{6x}$. Next we try to
+compute now modular standard bases for $\langle 6x, 8x \rangle \subset \F_p[x]$
+for some prime number $p > 3$.\footnote{We choose $p>3$ since it should at least
+not divide the lead coefficients of the input polynomials.} The corresponding
+\stb is, for example, $G_p = \{6x,8x\}$. Buchberger's algorithm over
+$\F_p$ only considers $\spoly{8x}{6x} = 0$ and terminates afterwards. If
+we ensure that Buchberger's algorithm computes a reduced\footnote{A
+reduced \stb over a field w.r.t. a global monomial order means that the lead
+coefficients of all elements in the basis are $1$ and no lead term divides
+any term of any other polynomial in the basis.} \stb we would get $G_p =
+\{x\}$. The problem is that in no case we would get $2x \in G_p$ which is
+the important element for the strongness of the \stb for $I$ over $\Z$.
+
+Thus there is no way to compute a strong \stb over $\Z$ via modular computations
+over $\F_p$ and lifting techniques, since important $\gcd$ computation are not
+taken care of.
+\end{example}
+
+One trick we can do is trying to find monomials or constants in the ideal we
+want to compute a strong \stb for. If we can add such elements to the list of
+input polynomials of Algorithm~\ref{alg:bba} this can give a huge speed up to
+the overall computation. The following lemma gives us a hint on how to do so.
+
+\begin{lemma}
+Let $<$ be a monomial order on $\Z[x]$ and let
+$I=\langle f_1,\ldots, f_m\rangle \subset \Z[x]$. Let $\tilde I = \langle
+f_1,\ldots, f_m\rangle \subset \Q[x]$. If the standard basis $G = \langle 1
+\rangle $ for $\tilde I$ w.r.t. $<$ then there exists a constant $c \in \Z$
+such that $c \in I$.
+\label{lem:syz-coeff}
+\end{lemma}
+
+\begin{proof}
+Let $G = \langle 1 \rangle \subset \Q[X]$. Consider $J = \langle 1, f_1,\ldots,
+f_m\rangle \subset \Q[x]$. Consider the free module $\Q[x]^{m+1}$ with
+standard generators $e_0,\ldots,e_m$ together
+with the map $\pi: \Q[x]^{m+1} \rightarrow \Q[x]$ defined via $e_0 \mapsto
+1$ and $e_i \mapsto f_i$ for all $1 \leq i \leq m$.
+Since $1 \in G$ there must exist a syzygy $\sigma \in \Q[x]^{m+1}$ of the
+following structure
+\[ \sigma = e_0 + \sum_{i=1}^m p_i e_i\]
+where $p_i \in \Q[x]$ are polynomials for all $1\leq i \leq m$.
+In other words, we can represent $1 = \pi(e_0)$ as a $\Q[x]$-linear
+combination of the $f_i = \pi(e_i)$. Moreover, we define
+\[c := \lcm\left(\text{all denominators of all
+coefficients of all terms of all $p_i$}\right).\]
+Thus we get another syzygy $c\sigma$ which corresponds to the equation
+\[c = c \cdot 1 = c \cdot \pi(e_0) =\sum_{i=1}^m (c p_i)\cdot \pi(e_i) =
+\sum_{i=1}^m (c p_i) \cdot f_i\]
+where $c p_i \in \Z[x]$ for all $1 \leq i \leq m$.
+By construction it follows that $c \in I$.
+\end{proof}
+
+\begin{algorithm}
+\caption{RationlPreCheck (\rpc)} 
+\label{alg:rpc}
+\begin{algorithmic}[1]
+\Require{Ideal $I=\langle f_1,\ldots,f_m\rangle \subset \epr$, monomial order
+  $<$}
+\Ensure{Ideal $J$ such that $J = I$}
+\State{$G \gets$ \stb for $\langle f_1,\ldots, f_m\rangle$ in $\Q[x]$ w.r.t. $<$}
+\State{$S \gets \syz{\langle 1, f_1,\ldots, f_m\rangle} \subset \sum_{i=0}^m\Q[x]
+  e_i$ w.r.t. $<$}
+\If{$1 \in G$}
+\State{Search for $\sigma \in S$ with $0$th component of the form $c e_0$, $c
+  \in \Q$.}
+\State{Find multiple $\lambda \in \Z$ such that $\lambda \sigma \in \sum_{i=0}^m
+  \Z[x]e_i$}
+\State{$J \gets \langle \lambda c, f_1, \ldots, f_m\rangle$}
+\EndIf
+\State{$\text{\textbf{return }}J$}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{example}
+We give two examples, a small one we do by hand and a bigger one which gives a
+real benefit for the overall computational time:
+\begin{enumerate}
+\item Let $I \subset \Z[x,y]$ be given by $I=\langle x+4, xy+9, x-y+8\rangle$.
+We want to compute a strong \stb for $I$ w.r.t. the degree reverse-lexicographical
+order $<$. The \stb for $I$ over $\Q$ includes $1$, so we have a constant in the
+\stb for $I$ over $\Z$. We compute $\syz{\langle 1, x+4, xy+9, x-y+8\rangle}
+\subset \sum_{i=0}^3 \Q[x,y]$ and get the following three syzygies:
+\begin{center}
+$
+\begin{array}{rcl}
+\sigma_1 & = & 7 e_0 - (x+4) e_1 + e_2 + x e_3,\\
+\sigma_2 & = & (y-4) e_0 - e_1 + x e_3,\\
+\sigma_3 & = & (x+4) e_0 - e_1.
+\end{array}
+$
+\end{center}
+$\sigma_1$ is the relation from which we can extract the corresponding constant
+for $I$:
+\begin{center}
+$
+\begin{array}{rcl}
+7 = 7 \pi(e_0) &=& (x+4) \pi(e_1) - \pi(e_2) - x \pi(e_3)\\
+  &=& (x+4)(x+4) - (xy+9) - x(x-y+8)\\
+  &=& x^2+8x+16 - xy -9 - x^2 + xy -8x.
+\end{array}
+$
+\end{center}
+Thus, we add $7$ to the initial generators of $I$ and run
+Algorithm~\ref{alg:bba}. We receive a strong \stb $G = \{7, x+4, y-4\} \subset
+\Z[x,y]$ for $I$.
+\item A bigger example is given in Appendix~\ref{sec:syz-example}: The ideal $I$
+we are considering is generated by $70$ polynomials in $\Z[x,y,z]$. We want to
+compute a strong \stb for $I$ w.r.t. the degree reverse-lexicographical order $<$.
+In Table~\ref{table:syz-example} give some characteristics of the computation
+of a \stb for $I$ on an Intel Core
+i7-5557U CPU with 16 GB RAM. Note that the computation of
+Algorithm~\ref{alg:rpc} over $\Q$ takes $<0.01$ seconds and needs $<0.3$ MB of
+memory, so it is
+negligible compared to the computational cost over $\Z$. The strong \stb for $I$ computed by
+our implementation consists of only $9$ elements
+\begin{align*}
+G = \{&18, 6z-12, 2y-4, 2z2+4z+8,\\
+     &yz+z+3, 3x2z-15x2, x2y+3x2z+x2,\\
+     &x3+10z, x2z2-4x2z-11x2\}
+\end{align*}
+From Algorithm~\ref{alg:rpc} we do not directly get the constant $18 \in G$, but
+we get a multiple of it: $6,133,248$ (see Appendix~\ref{sec:syz-example} for the
+    corresponding syzygy relation in $I$). Adding this constant to the generators of
+$I$ and applying Algorithm~\ref{alg:bba} represents the third column of
+Table~\ref{table:syz-example}, whereas a direct application of
+Algorithm~\ref{alg:bba} on $I$ is given in column two.
+\end{enumerate}
+\end{example}
+
+\begin{table}[h]
+	\centering
+	% \renewcommand{\tabcolsep}{3mm}
+  \def\arraystretch{1.2}
+  %\scalebox{0.75}{
+  % \vspace*{-3mm}
+    \begin{tabular}{c||c|c}
+    \toprule
+    \multicolumn{1}{c||}{\textbf{Characteristics $\setminus$ Algorithms}} &
+    \multicolumn{1}{c|}{\sbba} &
+    \multicolumn{1}{c}{\rpc + \sbba}\\
+    \midrule
+    \text{maximal degree} & 13 & 13\\
+    \text{\# zero reductions} & 1,130 & 795\\
+    \text{\# product / chain criteria} & 1,279 / 2,990 & 826 / 1,925\\
+    \text{memory usage (in MB)} & 1.51 & 0.78\\
+    \bottomrule
+    \end{tabular}
+		\vspace*{5mm}
+	\caption{Characteristics of \stb computations of Example~\ref{sec:syz-example}}
+	\label{table:syz-example}
+\end{table}
+\begin{remark} \
+\begin{enumerate}
+\item Clearly, one can generalize Algorithm~\ref{alg:rpc}: If we do not have $1 \in G$
+over $\Q$ we might still get a short polynomial, even a monomial whose
+corresponding $\Z[x]$ representation can then be recovered from the corresponding
+syzygy module. Note that in this case the reconstruction is a bit harder and the
+precheck might take longer, since we have a more complex \stb
+computation over $\Q$ that does not terminate early.
+\item If one has a computer with at least two cores available the usage of
+\texttt{parallel.lib}~\cite{singular-parallel} resp. \texttt{task.lib}~\cite{singular-tasks}
+in \singular might be worthwhile: One could start the
+direct computation of \sbba over $\Z$ on one core plus \rpc over $\Q$ on the
+other core. Using the \texttt{waitfirst} command one could always ensure that the
+fatest possible running time is achieved.
+\end{enumerate}
+\end{remark}

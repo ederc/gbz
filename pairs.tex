@@ -1,0 +1,133 @@
+\section{How to choose Pairs}
+\label{sec:pairs}
+Having two classes of polynomials to handle, namely \spts and \gpts we also need
+criteria for deciding when such a polynomial is useless in the sense of
+predicting a zero reduction or having already a strong standard representation.
+The criteria presented in the following are then applied to
+Algorithm~\ref{alg:bba} in lines~\ref{alg:bba:update1} and~\ref{alg:bba:update2}
+when new elements for the pair set are generated.
+
+A first criterion takes care of useless \gpts:
+
+\begin{lemma}
+Let $f,g \in \epr$ such that $\lc f \mid \lc g$. Then $\gpoly f g$ reduces
+to zero w.r.t. $\{f,g\}$.
+\label{crit:gpoly-easy}
+\end{lemma}
+
+\begin{proof}
+Since $\gcd\left(\lc f, \lc g\right) = \lc f$ we can choose $b_f = 1$ and $b_g
+=0$. Thus $\gpoly f g = 1 \cdot t_f \cdot f - 0 \cdot t_g \cdot g = t_f f$ for monomial
+multiples $t_f, t_g$ such that $t_f \hm f = t_g \hm g = \lcm\left(\hm f, \hm
+    g\right)$. It follows that $\gpoly f g$ just a multiple of $f$ and
+thus reduces to zero w.r.t. $\{f,g\}$.
+\end{proof}
+
+As a next step we state well-known criteria by Buchberger, the Product and the
+Chain criterion:
+
+\begin{lemma}[Buchberger's Product Criterion]
+Let\\
+$f,g \in \epr$ be polynomials such that $\hm f$ and $\hm g$ are coprime.
+Then $\spoly f g$ reduces to zero w.r.t. $\{f,g\}$
+\label{thm:prod-crit}
+\end{lemma}
+
+\begin{proof}
+The proof is the same as in the field case.
+See Theorem~3 in~\cite{lichtblau2012} for more details.
+\end{proof}
+
+Note that Lemma~\ref{thm:prod-crit} does \emph{not} apply to \gpts. Take, for
+example, $G=\{f,g\}$ with $f=3x$ and $g=2y$. Then $\hm f = x$ and $\hm g = y$
+are coprime and $\spoly f g = g f - fg = 0$, but $\gpoly f g = y \cdot 3x - x
+\cdot 2y = xy$. Clearly, we cannot reduce $xy$ any further w.r.t. $G$.
+
+\begin{lemma}[Buchberger's Chain Criterion]
+Let $G \subset \epr$ finite and let $f,g,h \in G$ be polynomials such that
+\begin{enumerate}
+\item $\hm f \mid \lcm\left(\hm g, \hm h\right)$ and
+\item $\lc f \mid \lcm\left(\lc g, \lc h\right)$.
+\end{enumerate}
+If $\spoly f g$ and $\spoly f h$ have a strong standard representation w.r.t.
+$G$ then also $\spoly g h$ has a strong standard representation w.r.t. $G$.
+\label{thm:chain-crit}
+\end{lemma}
+
+\begin{proof}
+The lemma is proven as in the field case. We want to have an \spt chain
+\[\spoly g h = c_{f,g} m_{f,g} \spoly f g + c_{f,h} m_{f,h} \spoly f h\]
+for some coefficients $c_{f,g}, c_{f,h}$ and  some monomials $m_{f,g}, m_{f,h}$.
+Property $(1)$ ensures proper monomial multiples $m_{f,g}$ and $m_{f,h}$.
+Working over the integers we have to take care of the coefficients, too. Thus
+property $(2)$ is needed to ensure the existence of proper multiples $c_{f,g}$
+and $c_{f,h}$. For more details see, for example, the proof of Theorem~4
+in~\cite{lichtblau2012}: There the statement is proven for a strengthened
+version of property $(2)$, namely $\lc f \mid \lc g \mid \lc h$ resp. $\lc g
+\mid \lc f \mid \lc h$.
+\end{proof}
+
+Moreover, we can state a similar criterion for \gpts:
+
+\begin{lemma}
+Let $G \subset \epr$ finite and let $f,g,h \in G$ be polynomials such that
+\begin{enumerate}
+\item $\hm f \mid \lcm\left(\hm g, \hm h\right)$ and
+\item $\lc f \mid \gcd\left(\lc g, \lc h\right)$.
+\end{enumerate}
+Then $\gpoly g h$ has a strong standard representation w.r.t. $G$.
+\label{thm:chain-crit-gcd}
+\end{lemma}
+
+\begin{proof}
+See Theorem~10.11 in~\cite{bwkGroebnerBases1993} and Theorem~5
+in~\cite{lichtblau2012}.
+\end{proof}
+
+Besides these statements one can ``decide'' for two polynomials $f$ and
+$g$ if we need to compute the corresponding \gpt or the corresponding \spt.
+This goes back to~\cite{kapur1988} and can be also found as a variant of
+Buchberger's criterion as Theorem~2 in~\cite{lichtblau2012}.
+
+\begin{theorem}[Variant of Buchberger's Criterion, Theorem~2
+in~\cite{lichtblau2012}]
+Let $G \subset \epr$ be a finite set of polynomials, let $<$ be a monomial order
+on $\epr$. The following are equivalent:
+\begin{enumerate}
+\item $G$ is a strong standard basis w.r.t. $<$.
+\item\label{cond:all} For all $f,g \in G$ $\spoly f g$ and $\gpoly f g$ reduce to zero.
+\item\label{cond:only} For all $f,g \in G$ the following hold:
+\begin{enumerate}
+\item If $\lc f \mid \lc g$ then $\spoly f g$ reduces to zero.
+\item If $\lc f \nmid \lc g$ then $\gpoly f g$ reduces to zero.
+\end{enumerate}
+\end{enumerate}
+\label{thm:buchberger-criterion}
+\end{theorem}
+
+Clearly, when implementing the above criteria especially the choice between
+Condition~\ref{cond:all} and Condition~\ref{cond:only} in
+Theorem~\ref{thm:buchberger-criterion} has a huge influence on the computation:
+\begin{enumerate}
+\item Depending the choice of the next element in the pair set in
+Algorithm~\ref{alg:bba} it is obvious that Condition~\ref{cond:only} lies an
+emphasis on \gpts. For a pair of polynomials $f,g\in G$ the algorithm tries to
+keep of the lead coefficient of the genrated polynomial as small as possible.
+This process goes on until at some point eventually this smaller lead
+coefficient divides $\lc f$ $\lc g$. Then the corresponding \spt is generated
+which then removes the whole lead term.
+\item If we use Condition~\ref{cond:all} then there might be a lead term
+cancellation, i.e. \spt, being handled before the complete reduction process of
+the lead coefficient, i.e. handling of \gpts, is finished.
+\end{enumerate}
+
+Of course, one can have an influence on the above situation depending on the
+choice of the next element from the pair set $P$ in Line~\ref{alg:bba:choose} of
+Algorithm~\ref{alg:bba}. Lichtblau notes in~\cite{lichtblau2012} that, until
+now,
+there is no real comparison between the two attempts due to missing
+implementations.
+
+We have implemented Buchberger's algorithm with both conditions
+in \singular. We tested both attempts and give results in
+Section~\ref{sec:results}.
