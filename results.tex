@@ -23,22 +23,22 @@ and $64$GB RAM. The machine runs Arch Linux with unmodified 4.18.12 kernel.
     \multicolumn{1}{c}{\magma}\\
     \midrule
     Cyclic-6 & $0.330$ & $0.320$ & $4.708$ & $2.799$\\
-    Cyclic-7 & $21,731.820$ & $20,961.320$ & & $366.060$\\[0.2em]
-    Katsura-7 & & & $204.928$ & $251.630$\\
-    Katsura-8 & & & & ($>24$h)\\
+    Cyclic-7 & $21,731.820$ & $20,961.320$ & (out of memory) & $366.060$\\[0.2em]
+    Katsura-7 & & $4.010$ & $204.928$ & $251.630$\\
+    Katsura-8 & & $189.920$ & & ($>24$h)\\
     Katsura-9 & $14,954.590$ & $14,954.160$ & ($>24$h) & ($>24$h)\\[0.2em]
     Eco-9 & & $5.250$ & $870.409$ & $22.520$\\
-    Eco-10 & & $55.680$ & & $289.540$\\[0.2em]
-    Noon-7 & & $36.690$ & & ($>24$h)\\
-    Noon-8 & & $2,614.140$ & & ($>24$h)\\[0.2em]
+    Eco-10 & & $61.700$ & & $289.540$\\[0.2em]
+    F-633 & & $0.320$ &$14.982$ & $12.880$\\
+    F-744 & & $1,097.700$ & & \\[0.2em]
+    Noon-7 & & $44.230$ & ($>24$h) & ($>24$h)\\
+    Noon-8 & & $3,079.370$ & ($>24$h) & ($>24$h)\\[0.2em]
     Lichtblau & & $2.320$ & $69.536$ & $2,242.900$\\[0.2em]
-    Gametwo-7 & & & &$5,340,760$\\[0.2em]
     Bayes-148 & & $9.900$ & $117.635$ & $46.240$\\[0.2em]
-    Butcher-83 & & & &\\[0.2em]
-    Jason-210 & & $61.990$ & & ($>24$h)\\
+    Jason-210 & & $61.990$ & ($>24$h) & ($>24$h)\\
     \bottomrule
     \end{tabular}
-	\caption{Benchmark timings given in seconds}
+	\caption{Benchmark timings given in seconds (if not other noted).}
 	\label{table:syz-example}
 \end{table}
 
@@ -47,7 +47,10 @@ Comparing it to \magma we see that \magma is way faster for \texttt{Cyclic-7}.
 We assume that this is due to \magma using Faug\`ere's F4
 algorithm~(\cite{fF41999}): Our implementation considers less \spts and \gpts, but
 the reduction steps in higher degree are way slower than the linear algebra done
-in \magma. Still, in most of the other examples \singular is by a
+in \magma. We believe that there are more classes of examples where the linear
+algebra attempt is more efficient than the polynomial arithmetic used in
+\singular, still, we need to investigate this problem in more detail.
+Nevetheless, for most of the other examples considered, \singular is by a
 factor faster than \magma, too.
 
 For \singular we can see that generating all possible \spts and \gpts or only

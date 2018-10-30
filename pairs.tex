@@ -28,7 +28,8 @@ Chain criterion:
 
 \begin{lemma}[Buchberger's Product Criterion]
 Let\\
-$f,g \in \epr$ be polynomials such that $\hm f$ and $\hm g$ are coprime.
+$f,g \in \epr$ be polynomials such that $\hm f$ and $\hm g$ are coprime and $\lc
+f$ and $\lc g$ are coprime.
 Then $\spoly f g$ reduces to zero w.r.t. $\{f,g\}$
 \label{thm:prod-crit}
 \end{lemma}
@@ -98,8 +99,8 @@ on $\epr$. The following are equivalent:
 \item\label{cond:all} For all $f,g \in G$ $\spoly f g$ and $\gpoly f g$ reduce to zero.
 \item\label{cond:only} For all $f,g \in G$ the following hold:
 \begin{enumerate}
-\item If $\lc f \mid \lc g$ then $\spoly f g$ reduces to zero.
-\item If $\lc f \nmid \lc g$ then $\gpoly f g$ reduces to zero.
+\item If $\lc f \mid \lc g$ or $\lc g \mid \lc f$ then $\spoly f g$ reduces to zero.
+\item If $\lc f \nmid \lc g$ and $\lc g \nmid \lc f$ then $\gpoly f g$ reduces to zero.
 \end{enumerate}
 \end{enumerate}
 \label{thm:buchberger-criterion}
@@ -128,6 +129,20 @@ now,
 there is no real comparison between the two attempts due to missing
 implementations.
 
-We have implemented Buchberger's algorithm with both conditions
-in \singular. We tested both attempts and give results in
-Section~\ref{sec:results}.
+One statement we can make is the following:
+
+\begin{proposition}
+Theorem~\ref{thm:buchberger-criterion} already includes
+Lemma~\ref{thm:prod-crit}.
+\label{prop:prod-crit-useless}
+\end{proposition}
+
+\begin{proof}
+By Theorem~\ref{thm:buchberger-criterion} we do only consider $\spoly f g$ if either
+$\lc f \mid \lc g$ or $\lc g \mid \lc f$. Lemma~\ref{thm:prod-crit} applies only
+in the other situations, but there no \spt is generated at all.
+\end{proof}
+
+We have implemented Buchberger's algorithm with both variants of Buchberger's
+criterion in \singular. In Section~\ref{sec:results} we present more detailed
+results.

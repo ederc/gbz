@@ -278,8 +278,8 @@ $h := f$ and find that $g$ top-reduces $h$:
 \[h := x - \left(x-x^2\right) = x^2.\]
 Now we can again top-reduce $h$ via subtracting $xg$:
 \[h := x^2 - x\left(x-x^2\right) = x^3.\]
-This process does not stop, but constructs a power series equation
-\[x - \left(\sum_{i=0}^\infty x^i\right) \left(x-x^2\right) = 0.\]
+This process does not stop, but constructs a power series equation:
+$x - \left(\sum_{i=0}^\infty x^i\right) \left(x-x^2\right) = 0.$
 Since $x<1$ we know that $\sum_{i=0}^\infty x^i = \frac{1}{1-x}$. We see that
 Algorithm~\ref{alg:nfg} computes correctly since $(1-x) x = x-x^2$,
 still, it is not able to find the finite expression of the power series.
@@ -288,8 +288,7 @@ still, it is not able to find the finite expression of the power series.
 In~\cite{mora82} Mora gave the first attempt to achieve a terminating normal
 form algorithm also for local monomial orders:
 
-
-\begin{algorithm}
+\begin{algorithm}[h]
 \caption{Mora's normal form algorithm w.r.t. a local monomial order $<$
   (\nfn)} 
 \label{alg:nfl}
@@ -323,7 +322,7 @@ with notation as in Algorithm~\ref{alg:nfl}, i.e. if we have a choice for the
 reducer, we take the one of minimal possible ecart.
 We start with $h=4+x$ and $T_h =
 G$.
-\begin{table}[h]
+\begin{table}[h!]
 	\centering
 	% \renewcommand{\tabcolsep}{3mm}
   \def\arraystretch{1.2}
@@ -343,7 +342,6 @@ G$.
     $0$ & - & -\\
     \bottomrule
     \end{tabular}
-		\vspace*{5mm}
 	\caption{Local normal form computation due to Mora}
 	\label{table:infinite-nf}
 \end{table}
@@ -357,7 +355,7 @@ of the algorithm (Buchberger's criterion) we refer to
 Theorem~\ref{thm:buchberger-criterion} in Section~\ref{sec:pairs}.
 
 \begin{algorithm}
-\caption{Buchberger's algorithm for computing strong \stbs over the integers
+\caption{Buchberger's algorithm for computing strong \stbs
   (\sbba)} 
 \label{alg:bba}
 \begin{algorithmic}[1]
