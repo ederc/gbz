@@ -1,11 +1,13 @@
 \section{Computational results}
 \label{sec:results}
 In this section we present the new implementation for standard basis computation
-over $\Z$ in \singular. We compare it to the current implementations in the
-computer algebra systems \macaulay and \magma. For the comparison we use
-benchmarks with different properties and behaviours. All examples are computed
-with respect to the degree reverse lexicographical order. All algorithms run single
-threaded, we use an Intel Core i7-6700 CPU with $3.4$ GHz
+over Euclidean domains in \singular $4-1-2$.\footnote{Available in the \singular
+sources since git commit 7d2091affbf4b4a1a382e5eb0a47f66c0f3c42f7a.}
+We compare it to the current implementations in the
+computer algebra systems \macaulay (version $1.12$) and \magma (version $2.23$).
+For the comparison we use benchmarks with different properties and behaviours.
+All examples are computed with respect to the degree reverse lexicographical order.
+All algorithms run single threaded, we use an Intel Core i7-6700 CPU with $3.4$ GHz
 and $64$GB RAM. The machine runs Arch Linux with unmodified 4.18.12 kernel.
 
 \begin{table}[h]
@@ -16,29 +18,34 @@ and $64$GB RAM. The machine runs Arch Linux with unmodified 4.18.12 kernel.
   % \vspace*{-3mm}
     \begin{tabular}{c||r|r|r|r}
     \toprule
-    \multicolumn{1}{c||}{\textbf{Examples $\setminus$ CAS}} &
-    \multicolumn{1}{c|}{\singular} &
-    \multicolumn{1}{c|}{\singular} &
+    \multicolumn{1}{c||}{\textbf{Examples}} &
+    \multicolumn{1}{c|}{\singular (Thm.~\ref{thm:buchberger-criterion})} &
+    \multicolumn{1}{c|}{\singular (all pairs)} &
     \multicolumn{1}{c|}{\macaulay} &
     \multicolumn{1}{c}{\magma}\\
     \midrule
     Cyclic-6 & $0.330$ & $0.320$ & $4.708$ & $2.799$\\
-    Cyclic-7 & $21,731.820$ & $20,961.320$ & (out of memory) & $366.060$\\[0.2em]
-    Katsura-7 & & $4.010$ & $204.928$ & $251.630$\\
-    Katsura-8 & & $189.920$ & & ($>24$h)\\
+    Cyclic-7 & $21,731.820$ & $20,961.320$ & out of memory & $366.060$\\[0.2em]
+    Katsura-7 & $4.200$ & $4.010$ & $204.928$ & $251.630$\\
+    Katsura-8 & $190.040$ & $189.920$ & $64,555.420$ & ($>24$h)\\
     Katsura-9 & $14,954.590$ & $14,954.160$ & ($>24$h) & ($>24$h)\\[0.2em]
-    Eco-9 & & $5.250$ & $870.409$ & $22.520$\\
-    Eco-10 & & $61.700$ & & $289.540$\\[0.2em]
-    F-633 & & $0.320$ &$14.982$ & $12.880$\\
-    F-744 & & $1,097.700$ & & \\[0.2em]
-    Noon-7 & & $44.230$ & ($>24$h) & ($>24$h)\\
-    Noon-8 & & $3,079.370$ & ($>24$h) & ($>24$h)\\[0.2em]
-    Lichtblau & & $2.320$ & $69.536$ & $2,242.900$\\[0.2em]
-    Bayes-148 & & $9.900$ & $117.635$ & $46.240$\\[0.2em]
-    Jason-210 & & $61.990$ & ($>24$h) & ($>24$h)\\
+    Eco-9 & $5.320$ & $5.250$ & $870.409$ & $22.520$\\
+    Eco-10 & $58.840$ & $61.700$ & ($>24$h) & $289.540$\\[0.2em]
+    F-633 & $0.240$ & $0.320$ &$14.982$ & $12.880$\\
+    F-744 & $1,071.710$ & $1,097.700$ & ($>24$h) & ($>24$h) \\[0.2em]
+    Noon-7 & $39.530$ & $40.120$ & ($>24$h) & ($>24$h)\\
+    Noon-8 & $2,570.760$ & $3,079.370$ & ($>24$h) & ($>24$h)\\[0.2em]
+    Reimer-5 & $6.720$ & $6.580$ & out of memory & $1,932.400$\\
+    Reimer-6 & $1,973.800$ & $1,974.140$ & out of memory & ($>24$h)\\[0.2em]
+    Lichtblau & $2.410$ & $2.320$ & $69.536$ & $2,242.900$\\[0.2em]
+    Bayes-148 & $9.970$ & $9.900$ & $117.635$ & $46.240$\\[0.2em]
+    Mayr-42 & $212.320$ & $212.770$ & $218.635$ & $40.270$\\[0.2em]
+    Yang-1 & $150.120$ & $148.250$ & $181.210$ & $50.330$\\[0.2em]
+    Jason-210 & $61.580$ & $61.990$ & ($>24$h) & ($>24$h)\\
     \bottomrule
     \end{tabular}
-	\caption{Benchmark timings given in seconds (if not other noted).}
+	\caption{Benchmark timings given in seconds (``($>24$h)'' means that we have stopped the computation
+      after at least $24$ hours.)}
 	\label{table:syz-example}
 \end{table}
 
@@ -49,12 +56,24 @@ algorithm~(\cite{fF41999}): Our implementation considers less \spts and \gpts, b
 the reduction steps in higher degree are way slower than the linear algebra done
 in \magma. We believe that there are more classes of examples where the linear
 algebra attempt is more efficient than the polynomial arithmetic used in
-\singular, still, we need to investigate this problem in more detail.
+\singular, still, we need to investigate this problem in more detail. We can see
+that the F4 algorithm seems to be beneficial also for Mayr-42 and Yang-1.
 Nevetheless, for most of the other examples considered, \singular is by a
 factor faster than \magma, too.
 
+In the above table we list timings for \macaulay's Buchberger implementation
+usinge polynomial arithmetic (as for \singular).
+We also tested \macaulay's F4 implementation, but in most of the above examples
+it was slower or just as fast as the polynomial arithmetic implementation. Due
+to its much higher memory usage, we could not finish most of the examples on the
+given machine. The only example where we have seen a better result was Mayr-42
+where \macaulay's F4 algorithm finished in $185$ seconds, still using way more
+memory than \magma and nearly $20$ times as much as \singular. In all the given
+example \singular's new algorithm uses, in general, the least memory of all
+mentioned implementations.
+
 For \singular we can see that generating all possible \spts and \gpts or only
-the ones needed, recall Theorem~\ref{thm:buchberger-criterion}, does not have a
+the ones needed (recall Theorem~\ref{thm:buchberger-criterion}) does not have a
 bigger influence on the computation. The main speed up lies in a faster
 application of the product and the chain criteria since there are less pairs
 generated which are then removed. On the other hand: Sometimes good reducers

@@ -12,21 +12,22 @@ is not working over the integers:
 \begin{example}
 Let $I = \langle 6x, 8x \rangle \subset \Z[x]$. A strong \stb w.r.t. a global
 monomial order $<$ is $G = \{2x,6x,8x\}$ where $2x = \gpoly{8x}{6x}$. Next we try to
-compute now modular standard bases for $\langle 6x, 8x \rangle \subset \F_p[x]$
+compute modular standard bases for $\langle 6x, 8x \rangle \subset \F_p[x]$
 for some prime number $p > 3$.\footnote{We choose $p>3$ since it should at least
 not divide the lead coefficients of the input polynomials.} The corresponding
-\stb is, for example, $G_p = \{6x,8x\}$. Buchberger's algorithm over
-$\F_p$ only considers $\spoly{8x}{6x} = 0$ and terminates afterwards. If
+\stb is $G_p = \{x\}$: Buchberger's algorithm over $\F_p$ only considers
+$\spoly{8x}{6x} = 0$ and terminates afterwards. If
 we ensure that Buchberger's algorithm computes a reduced\footnote{A
 reduced \stb over a field w.r.t. a global monomial order means that the lead
 coefficients of all elements in the basis are $1$ and no lead term divides
-any term of any other polynomial in the basis.} \stb we would get $G_p =
+any term of any other polynomial in the basis.} \stb we then get $G_p =
 \{x\}$. The problem is that in no case we would get $2x \in G_p$ which is
-the important element for the strongness of the \stb for $I$ over $\Z$.
+the important element for the strongness of the \stb for $I$ over $\Z$. Even
+before applying Hensel lifting or the Chinese remainder theorem the information
+needed is lost.
 
 Thus there is no way to compute a strong \stb over $\Z$ via modular computations
-over $\F_p$ and lifting techniques, since important $\gcd$ computation are not
-taken care of.
+over $\F_p$ and lifting techniques in general.
 \end{example}
 
 One trick we can do is trying to find monomials or constants in the ideal we

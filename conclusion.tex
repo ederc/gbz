@@ -1,6 +1,7 @@
 \section{Conclusion}
-We have presented new ideas for computing standard bases over the integers. The
-implementation of the corresponding algorithms is available in \singular. We
+We have presented new ideas for computing standard bases over Euclidean domains
+without zero divisors.
+The implementation of the corresponding algorithms is available in \singular. We
 have seen that \singular is in general faster than \macaulay and \magma in
 various examples.
 
@@ -10,11 +11,11 @@ benefit from the new ideas and the fast linear algebra. Still, not all ideas
 presented here are trivial to move to an F4-style algorithm.
 
 Moreover, we still see a lot of zero reductions in higher degree which slow down
-the computation. In order to tackle this problem, we work on a stronger chain
+the computation. In order to tackle this problem, we work on a more general chain
 criterion trying to exploit more of the structure of the input system. Even
 more, a further attempt on signature-based computation over $\Z$,
 see~(\cite{eppSigZ2017}), should be possible.
 
 Another topic we are working on is to improve the implementation in \singular
 for $\Z_n$ where $n$ is not a prime number. There, special care needs to be
-taken of the annihilator polynomials which do not appear in computation over $\Z$.
+taken of the annihilator polynomials.

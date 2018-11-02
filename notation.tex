@@ -350,6 +350,12 @@ Note the importance of $4+x$ being added to $T_h$. Without $4+x$ as reducer the
 reduction process would not terminate.
 \end{example}
 
+\begin{remark}
+Sometimes it can be more efficient to not only add the current status of $h$ to
+$T_h$ as a new reducer, but also to generate \gpts with $h$. Doing so,
+several lead coefficient reductions may be done in one step. See
+Section~\ref{sec:nf} for more details.
+\end{remark}
 Now we are ready to state Buchberger's algorithm. For the theoretical background
 of the algorithm (Buchberger's criterion) we refer to
 Theorem~\ref{thm:buchberger-criterion} in Section~\ref{sec:pairs}.
