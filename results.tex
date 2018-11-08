@@ -84,3 +84,11 @@ of the examples the algorithm taking care of all possible pairs does not even
 compute more reductions, the product and chain criterion removes those
 pairs which are really useless at some later stage. All in all it seems that
 considering all possible \spts and \gpts leads to a more stable algorithm.
+
+We found that the application of Lemma~\ref{lem:m2-replace-trick} becomes
+sometimes a bottleneck. For example, always exchanging $f$ and $g$ by $\spoly
+fg$ and $\gpoly fg$ has a huge drawback in the computation of a basis for
+Cyclic-7, leading to a slow down of a factor of more than $3$. We found
+that overall it is a good heuristic to apply Lemma~\ref{lem:m2-replace-trick} at
+most $5$ times per a single reduction process. The \singular timings in the
+above table correspond exactly this implementation.

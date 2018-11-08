@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{sec:intro} In $1964$ Hironaka already investigated
 computational approaches towards singularities and introduced the notion of
-\stbs also for local monomial orders, see, for
+\stbs for local monomial orders, see, for
 example,~\cite{hironaka11964, hironaka21964}.
 In~\cite{bGroebner1965, bGroebner1965eng}, Buchberger initiated, in $1965$, the theory
 of \gbs for global monomial orders by which many fundamental problems in mathematics, science
@@ -27,20 +27,21 @@ optimizations has been introduced, see, for example,~\cite{Wienand2011,
 
 In this paper we introduce several new optimizations to the computation of
 strong \stbs over Euclidean domains. In Section~\ref{sec:notation} we give the
-basis notation and introduce the generalized idea of a reduction step. We state
+basic notation and introduce the idea of a reduction step, generalized from the
+field case. We state
 Buchberger's algorithm over Euclidean domains for global and also for local
 monomial orders. Section~\ref{sec:pairs} discusses different variants of how to
 handle \spts and \gpts, especially generalized variants of Buchberger's product
 and chain criterion. Over Euclidean domains like the integers, coefficient swell
-and the missing normalization of the coefficient plays an important role when it
+and the missing normalization of the lead coefficient play an important role when it
 comes to practical and efficient computation. Modular computation are not
 possible in general, but we give a new attempt for keeping coefficients at a low
 in Section~\ref{sec:coefficients}. In Section~\ref{sec:nf} we finally give an
-in-depth discussion on the normal form computation which gives various attempts
-like \ltrs and \lcrs which again help to keep coefficients small. Moreover, we
-discuss how to minimize the number of polynomials in a bsis which have the same
-leading monomial. This again has a big impact on the reduction process.
-We have done a new implementation of Buchberger's algorithm, based on the above
-mentioned ideas, in the computer algebra system \singular. In
-Section~\ref{sec:results} we compare our implementation with \macaulay and
-\magma, with partially astonishing results.
+in-depth discussion on the normal form computation which provides various attempts
+like \ltrs and \lcrs. This, again, helps to keep coefficients small and
+minimizes the number of polynomials in a basis which have the same
+leading monomial by applying efficient gcd computation.
+We have done a new implementation of Buchberger's algorithm in the computer
+algebra system \singular. In Section~\ref{sec:results} we compare our implementation
+with \macaulay and \magma, exploring the impact of the above ideas with
+some interesting results.

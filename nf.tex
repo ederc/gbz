@@ -175,7 +175,12 @@ algorithm for reaching $\gpoly fg$. So we can directly replace $g$ with
 $\gpoly fg$ which leads to smaller coefficients and multiples during the pair
 generation. Furthermore, $\gpoly fg$ reduces other elements at least in all
 situations $g$ would reduce, but it can possibly fulfill more \ltrs due to its
-smaller lead coefficient. 
+smaller lead coefficient.
+
+Furthermore, since $\hm{\gpoly fg} = \hm g$ we can replace all \spts already generated
+with $g$, again giving smaller coefficients in upcoming reduction processes.
+Even more, using $\gpoly fg$ we are possibly able to render more \spts useless
+applying the chain criterion, due to the smaller lead coefficient.
 \item For $f$ the advantage is that we are not stuck with a \lcr only, but we
 can go on and perform the \ltr $\spoly fg$ and thus directly lower the lead term
 without the need of adding $f$ to the basis, which would blowi up pair
