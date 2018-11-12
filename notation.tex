@@ -43,6 +43,7 @@ syzygies (of $\langle f_1,\ldots, f_m\rangle$) is denoted $\syz{\langle
 
 In the following we discuss computation with respect to different monomial orders:
 \begin{definition}
+\label{def:orders}
 Let $<$ denote a monomial order on \epr. 
 \begin{enumerate}
 \item $<$ is called \emph{global} if $x^\alpha \geq 1$ for all $\alpha \in \N^n$.
@@ -129,7 +130,9 @@ the naming convention in this paper:
 
 \begin{convention}
 Note that the term \emph{\gb} was introduced by Buchberger in 1965 for bases
-w.r.t. a global monomial order. Independently, Hironaka developed an analgous
+w.r.t. a global monomial order (\cite{bGroebner1965, bGroebner1965eng}). Independently, Hironaka
+(\cite{hironaka11964, hironaka21964}), and, again
+independetly, Grauert (\cite{grauert1972}), developed an analgous
 concept, called \emph{\stb}, for multivariate power series, i.e. for polynomial
 rings equipped with a local monomial order. For this paper we decided to use
 the notion \emph{\stb} since it is nowadays the more general one.

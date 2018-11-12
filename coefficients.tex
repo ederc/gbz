@@ -15,8 +15,9 @@ monomial order $<$ is $G = \{2x,6x,8x\}$ where $2x = \gpoly{8x}{6x}$. Next we tr
 compute modular standard bases for $\langle 6x, 8x \rangle \subset \F_p[x]$
 for some prime number $p > 3$.\footnote{We choose $p>3$ since it should at least
 not divide the lead coefficients of the input polynomials.} The corresponding
-\stb is $G_p = \{x\}$: Buchberger's algorithm over $\F_p$ only considers
-$\spoly{8x}{6x} = 0$ and terminates afterwards. If
+\stb is $G_p = \{6x,8x\}$: Buchberger's algorithm over $\F_p$ only considers
+$\spoly{8x}{6x} = 0$ and terminates afterwards, thus only the initial generators
+are added to $G_p$. If
 we ensure that Buchberger's algorithm computes a reduced\footnote{A
 reduced \stb over a field w.r.t. a global monomial order means that the lead
 coefficients of all elements in the basis are $1$ and no lead term divides
@@ -172,7 +173,7 @@ syzygy module. Note that in this case the reconstruction is a bit harder and the
 precheck might take longer, since we have a more complex \stb
 computation over $\Q$ that does not terminate early.
 \item If one has a computer with at least two cores available the usage of
-\texttt{parallel.lib}~\cite{singular-parallel} resp. \texttt{task.lib}~\cite{singular-tasks}
+\texttt{parallel.lib} resp. \texttt{task.lib}~(\cite{singular-parallel,singular-tasks})
 in \singular might be worthwhile: One could start the
 direct computation of \sbba over $\Z$ on one core plus \rpc over $\Q$ on the
 other core. Using the \texttt{waitfirst} command one could always ensure that the

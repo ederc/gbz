@@ -1,8 +1,8 @@
 \section{Introduction}
 \label{sec:intro} In $1964$ Hironaka already investigated
 computational approaches towards singularities and introduced the notion of
-\stbs for local monomial orders, see, for
-example,~\cite{hironaka11964, hironaka21964}.
+\stbs for local monomial orders,\footnote{See Definition~\ref{def:orders}.} see, for
+example,~\cite{hironaka11964, hironaka21964, grauert1972}.
 In~\cite{bGroebner1965, bGroebner1965eng}, Buchberger initiated, in $1965$, the theory
 of \gbs for global monomial orders by which many fundamental problems in mathematics, science
 and engineering can be solved algorithmically. Specifically, he introduced some key
@@ -35,10 +35,10 @@ handle \spts and \gpts, especially generalized variants of Buchberger's product
 and chain criterion. Over Euclidean domains like the integers, coefficient swell
 and the missing normalization of the lead coefficient play an important role when it
 comes to practical and efficient computation. Modular computation are not
-possible in general, but we give a new attempt for keeping coefficients at a low
+possible in general, but we give a new attempt for keeping coefficients small
 in Section~\ref{sec:coefficients}. In Section~\ref{sec:nf} we finally give an
 in-depth discussion on the normal form computation which provides various attempts
-like \ltrs and \lcrs. This, again, helps to keep coefficients small and
+like lead term reductions and lead coefficient reductions. This, again, helps to keep coefficients small and
 minimizes the number of polynomials in a basis which have the same
 leading monomial by applying efficient gcd computation.
 We have done a new implementation of Buchberger's algorithm in the computer
