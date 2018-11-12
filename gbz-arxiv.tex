@@ -1,0 +1,351 @@
+% \documentclass[final,1p,times,authoryear]{elsarticle}
+\documentclass[a4paper, 11pt]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{authblk}
+%\usepackage{times}
+%\usepackage{mathptmx}
+\usepackage[normalem]{ulem}
+\usepackage{algorithm}
+%\usepackage{algorithmicx}
+\usepackage[]{algpseudocode}
+%\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{tikz}
+\usetikzlibrary{arrows,matrix,fit,positioning}
+
+% better than verbatim
+\usepackage{listings}
+\lstset{
+  basicstyle=\small,
+    mathescape=true,
+    columns=flexible,
+    breaklines=true
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{convention}[theorem]{Convention}
+\newtheorem{acknowledgment}[]{Acknowledgment}
+\iffalse
+\newenvironment{proof}{\noindent{\em Proof:}}{$\Box$~\\}
+\fi
+
+% % \setlength{\paperheight}{11in}
+% % \setlength{\paperwidth}{8.5in}
+% % \usepackage[
+% %   pass,% keep layout unchanged
+% %   % showframe,% show the layout
+% %   ]{geometry}
+% %% The amsthm package provides extended theorem environments
+% \newtheorem{theorem}{Theorem}
+% %\newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem{technique}[theorem]{Technique}
+% %\newtheorem{proposition}[theorem]{Proposition}
+% %\newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem{remarkconv}[theorem]{Remark \& Convention}
+% \newtheorem{remark}[theorem]{Remark}
+% \newtheorem{convention}[theorem]{Convention}
+% \newtheorem{definition}[theorem]{Definition}
+% \newtheorem{algo}[theorem]{Algorithm}
+% \newtheorem{example}[theorem]{Example}
+
+\setlist{nosep} % or \setlist{noitemsep} to leave space around whole list
+\newcommand\mcal{\mathcal}
+\newcommand\mbf{\mathbf}
+\newcommand\mbb{\mathbb}
+\newcommand\msf{\mathsf}
+\newcommand\mrm{\mathrm}
+\newcommand\eps{\varepsilon}
+\newcommand\vphi{\varphi}
+\newcommand\ceil[1]{\left\lceil#1\right\rceil}
+\newcommand\floor[1]{\left\lfloor#1\right\rfloor}
+\newcommand\cro[1]{\left[#1\right]}
+\newcommand\pare[1]{\left(#1\right)}
+\newcommand\acc[1]{\left\{#1\right\}}
+
+\providecommand{\keywords}[1]{\textbf{\textit{Keywords---}} #1}
+
+\usepackage{xspace}
+\usepackage{numprint}
+\def\uint#1{\texttt{uint{#1}\_t}}
+\def\ieme{\textsuperscript{th}\xspace}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{marginnote}
+\let\marginpar\marginnote
+\newcommand{\func}[1]{{\rm #1}}
+\newcommand{\Ffour}{\textsf{F4}\xspace}
+\newcommand{\Ffive}{\textsf{F5}\xspace}
+\newcommand{\FfiveC}{\textsf{F5C}\xspace}
+\newcommand{\gvw}{\textsf{GVW}\xspace}
+\newcommand{\std}{\textsf{STD}\xspace}
+\newcommand{\sba}{\textsf{SBA}\xspace}
+\newcommand{\hba}{\textsf{HBA}\xspace}
+\newcommand{\bba}{\textsf{BBA}\xspace}
+\newcommand{\nfn}{\textsf{NF}\xspace}
+\newcommand{\magma}{\textsc{Magma}\xspace}
+\newcommand{\macaulay}{\textsc{Macaulay2}\xspace}
+\newcommand{\singular}{\textsc{Singular}\xspace}
+\newcommand{\gbl}{\textsc{GB}\xspace}
+\newcommand{\singularversion}{$4-1-0$\xspace}
+\newcommand{\ie}{\mbox{\emph{i.e.}}\xspace}
+%\newcommand{\resp}{\mbox{resp.}\xspace}
+\usepackage{url,amsmath}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\DeclareMathOperator\GL{GL}
+
+\newcommand*{\defeq}{\mathrel{\vcenter{\baselineskip0.5ex \lineskiplimit0pt
+                     \hbox{\scriptsize.}\hbox{\scriptsize.}}}%
+                     =}
+
+\DeclareMathOperator{\sigSym}{{\mathfrak{s}}}
+\DeclareMathOperator{\rewriteSym}{{\mathfrak r}}
+\DeclareMathOperator{\headSym}{lt}
+\DeclareMathOperator{\headmSym}{lm}
+\DeclareMathOperator{\indexSym}{ind}
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\lc}[1]{\mathrm{lc}\left({#1}\right)}
+\newcommand{\hd}[1]{\headSym\left({#1}\right)}
+\newcommand{\hm}[1]{\headmSym\left({#1}\right)}
+\newcommand{\lcp}[1]{\lc{\proj{#1}}}
+\newcommand{\hmp}[1]{\hm{\proj{#1}}}
+\newcommand{\hdp}[1]{\hd{\proj{#1}}}
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\ecart}[1]{\ensuremath{\mathrm{ecart}\left({#1}\right)}}
+\newcommand{\ann}[1]{\ensuremath{\mathrm{Ann}\left({#1}\right)}}
+\newcommand{\spair}[2]{\ensuremath{\mathrm{spair}\left({#1},{#2}\right)}}
+\newcommand{\gpair}[2]{\ensuremath{\mathrm{gpair}\left({#1},{#2}\right)}}
+\newcommand{\epoly}[1]{\ensuremath{\mathrm{epol}\left({#1}\right)}}
+\newcommand{\spoly}[2]{\ensuremath{\mathrm{spoly}\left({#1},{#2}\right)}}
+\newcommand{\gpoly}[2]{\ensuremath{\mathrm{gpoly}\left({#1},{#2}\right)}}
+\newcommand{\nf}[2]{\ensuremath{\text{\sffamily{NF}}\left({#1},{#2}\right)}}
+\newcommand{\mmorSym}{\phi}
+\newcommand{\er}{\ensuremath{\mathcal{R}}\xspace}
+\newcommand{\epr}{\ensuremath{\mathcal{P}}\xspace}
+\newcommand{\numberGenerators}{m}
+\newcommand{\ip}[1]{\left({#1}_1,\ldots,{#1}_\numberGenerators\right)}
+\newcommand{\gen}[1]{\langle {#1}_1,\ldots,{#1}_\numberGenerators \rangle}
+\newcommand{\mgen}{\boldsymbol{e}_1,\ldots,\boldsymbol{e}_\numberGenerators}
+\newcommand{\module}{\ensuremath{\epr^\numberGenerators}\xspace}
+\newcommand{\mon}{\mathcal{M}}
+\newcommand{\modmon}{\mathcal{N}}
+\newcommand{\const}{a}
+%\newcommand{\sig}[1]{\sigSym\left({#1}\right)}
+\newcommand{\La}{{\mathcal{L}_p}}
+\newcommand{\s}{\ensuremath{^*}}
+\newcommand{\p}{\ensuremath{^\prime}}
+\newcommand{\pp}{\ensuremath{^{\prime\prime}}}
+\newcommand{\biimp}{\Leftrightarrow}
+\newcommand{\imp}{\Rightarrow}
+\newcommand{\impby}{\Leftarrow}
+\newcommand{\rewset}[1]{\mathfrak{R}_{#1}}
+\newcommand{\proj}[1]{\overline{#1}}
+\newcommand{\mbasis}[1]{\boldsymbol{e}_{#1}}
+\newcommand{\gbasissome}{\alpha}
+\newcommand{\gbasis}[1]{\gbasissome_{#1}}
+\newcommand{\sig}[1]{\sigSym\left({#1}\right)}
+\newcommand{\syz}[1]{\mathrm{syz}\left({#1}\right)}
+\newcommand{\origBasis}{\mathcal G}
+\newcommand{\basis}{\ensuremath{\origBasis}}
+\newcommand{\hdsyz}{\ensuremath{\mathcal{H}}}
+\newcommand{\extendBasis}[1]{\origBasis_{#1}}
+\newcommand{\mmor}[1]{\mmorSym\left({#1}\right)}
+\newcommand{\assGrb}{(A)}
+\newcommand{\assRew}{(B)}
+\newcommand{\ind}[1]{\indexSym\left({#1}\right)}
+\newcommand{\rewriters}[1]{\mathcal{C}_{#1}}
+\newcommand{\sltr}{symmetric-\ensuremath{\headSym}-reduction\xspace}
+\newcommand{\ltr}{\ensuremath{\headSym}-reduction\xspace}
+\newcommand{\ltrs}{\ensuremath{\headSym}-reductions\xspace}
+\newcommand{\sr}{strong-reduction\xspace}
+\newcommand{\gcdr}{gcd-reduction\xspace}
+\newcommand{\lcr}{\ensuremath{\mathrm{lc}}-reduction\xspace}
+\newcommand{\lcrs}{\ensuremath{\mathrm{lc}}-reductions\xspace}
+\newcommand{\sd}{sig-drop\xspace}
+\newcommand{\sds}{sig-drops\xspace}
+\newcommand{\sigb}{signature-based\xspace}
+\newcommand{\spat}{S-pair\xspace}
+\newcommand{\spats}{S-pairs\xspace}
+\newcommand{\gpat}{GCD-pair\xspace}
+\newcommand{\gpats}{GCD-pairs\xspace}
+\newcommand{\spt}{S-poly\-no\-mial\xspace}
+\newcommand{\spts}{S-poly\-no\-mials\xspace}
+\newcommand{\gpt}{GCD-poly\-no\-mial\xspace}
+\newcommand{\gpts}{GCD-poly\-no\-mials\xspace}
+\newcommand{\jcf}{Faug\`ere\xspace}
+\newcommand{\stb}{standard basis\xspace}
+\newcommand{\stbs}{standard bases\xspace}
+\newcommand{\gb}{Gr\"obner basis\xspace}
+\newcommand{\gbs}{Gr\"obner bases\xspace}
+\newcommand{\rpc}{{\sffamily RPC}\xspace}
+\newcommand{\sbba}{{\sffamily sBBA}\xspace}
+\newcommand{\gbla}{{\sffamily GBLA}\xspace}
+\newcommand{\gblaone}{{\sffamily GBLA-v0.1}\xspace}
+\newcommand{\gblatwo}{{\sffamily GBLA-v0.2}\xspace}
+\newcommand{\lela}{{\sffamily LELA}\xspace}
+\newcommand{\linbox}{{\sffamily LinBox}\xspace}
+\newcommand{\fflas}{{\sffamily FFLAS-FFPACK}\xspace}
+\newcommand{\fl}{{\sffamily GB}\xspace}
+\newcommand{\fli}{{\sffamily FL Implementation}\xspace}
+\newcommand{\flr}{\fl reduction\xspace}
+\newcommand{\openmp}{{\sffamily OpenMP}\xspace}
+\newcommand{\omp}{{\sffamily OMP}\xspace}
+\newcommand{\tbb}{{\sffamily Intel TBB}\xspace}
+\newcommand{\kaapi}{{\sffamily XKAAPI}\xspace}
+\newcommand{\xk}{{\sffamily XK}\xspace}
+\newcommand{\pthreads}{{\sffamily pthreads}\xspace}
+\newcommand{\lp}{\ensuremath{\text{\tt lp}}}
+\newcommand{\axpy}{{\tt AXPY}\xspace}
+\newcommand{\trsm}{{\tt TRSM}\xspace}
+\newcommand{\rk}{\ensuremath{\text{rank}}}
+\newcommand{\piv}{\ensuremath{\text{piv}}}
+\newcommand{\npiv}{\ensuremath{n_\text{piv}}}
+\newcommand{\pos}{\ensuremath{\text{\tt pos}}}
+\newcommand{\val}{\ensuremath{\text{\tt val}}}
+\newcommand{\ml}{\ensuremath{\text{\tt ml}}}
+\newcommand{\dense}{\ensuremath{\text{dense}}}
+\newcommand{\sizeof}{\ensuremath{\text{\tt sizeof}}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\potg}{\ensuremath{>_\textrm{pot}}}
+\newcommand{\potl}{\ensuremath{<_\textrm{pot}}}
+\newcommand{\sreduction}{\ensuremath{\sigSym}-reduction}
+\newcommand{\sreductions}{\ensuremath{\sigSym}-reductions}
+\newcommand{\sreduce}{\ensuremath{\sigSym}-reduce}
+\newcommand{\sreduces}{\ensuremath{\sigSym}-reduces}
+\newcommand{\sreduced}{\ensuremath{\sigSym}-reduced}
+\newcommand{\sreducible}{\ensuremath{\sigSym}-reducible}
+\newcommand{\sreducing}{\ensuremath{\sigSym}-reducing}
+\newcommand{\sreducibility}{\ensuremath{\sigSym}-reducibility}
+\newcommand{\sreducer}{\ensuremath{\sigSym}-reducer}
+\newcommand{\sreducers}{\ensuremath{\sigSym}-reducers}
+
+\makeatletter
+% \renewcommand{\ALG@beginalgorithmic}{\small}
+\makeatother
+\definecolor{mygreend}{HTML}{2ca92c}
+\definecolor{myredd}{HTML}{c31313}
+\def\ok{\bf}
+\def\na{n.a.\xspace}
+\def\vs{vs.\xspace}
+
+\usepackage{caption}
+\setlength{\belowcaptionskip}{-5pt}
+
+\newtheorem{alg}{Algorithm}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.99,0.99,0.99}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\renewcommand*{\arraystretch}{1.5}
+
+\def\sharedaffiliation{%
+  \end{tabular}
+  \begin{tabular}{c}
+}
+
+\begin{document}
+
+% \begin{frontmatter}
+
+\title{Standard Bases over Euclidean Domains}
+
+\author{Christian Eder\thanks{ederc@mathematik.uni-kl.de}}
+\author{Gerhard Pfister\thanks{pfister@mathematik.uni-kl.de}}
+\author{Adrian Popescu\thanks{popescu@mathematik.uni-kl.de}}
+\affil{TU Kaiserslautern\\Department of Mathematics\\D-67663 Kaiserslautern}
+
+%\maketitle
+% \end{frontmatter}
+
+% \copyrightyear{2018}
+% \acmYear{2018}
+% \setcopyright{acmlicensed}
+% \acmConference{ISSAC '18}{}{July 16--19, 2018, New York, USA}
+% \acmPrice{15.00}
+% \acmDOI{http://dx.doi.org/10.1145/XXXXXXX.XXXXXXX}
+% \acmISBN{978-1-4503-5064-8/17/07}
+% %Authors, replace the red X's with your assigned DOI string. See pdf attached to ACM rightsreview confirmation email.
+%
+% \fancyhead{}
+% \settopmatter{printacmref=false, printfolios=false}
+% % author add these codes to save space
+% % removes the ACM Reference Format section
+% \title{Standard Bases over the Integers}
+% %\numberofauthors{3}
+% \author{Christian Eder, Gerhard Pfister, Adrian Popescu}
+% \email{{ederc, pfister, popescu}@mathematik.uni-kl.de}
+% \affiliation{%
+% \institution{University of Kaiserslautern}
+% \department{Department of Mathematics}
+% \streetaddress{Erwin-Schr\"odinger-Str.}
+% \city{Kaiserslautern}
+% \postcode{67663}
+% \country{Germany}
+% }
+
+% \keywords{Gr\"obner bases, Standard Bases, Euclidean Rings, Local orders}
+ \maketitle
+
+\begin{abstract}
+In this paper we state and explain techniques useful for the computation of
+strong Gr\"obner and standard bases over Euclidean domains: First we investigate
+several strategies for creating the pair set using an idea by Lichtblau.
+Then we explain methods for avoiding coefficient growth using syzygies.
+We give an in-depth discussion on normal form computation resp. a generalized reduction
+process with many optimizations to further avoid large coefficients. These are
+combined with methods to reach \gpts at an earlier stage of the computation.
+Based on various examples we show that our new implementation in the
+computer algebra system \singular is, in general, more efficient than other
+known implementations.
+\end{abstract}
+
+\keywords{
+Gr\"obner bases, Standard Bases, Euclidean Domains, Algorithms
+}
+
+% \listoftodos[{\bf List of Todos}]\relax
+\input{intro}
+\input{notation}
+\input{pairs}
+\input{coefficients}
+\input{nf}
+ \input{results}
+ \input{conclusion}
+% \input{criteria}
+% \input{interreduce}
+% \input{gcd-reducer}
+% \input{sig-drops}
+% \input{hybrid}
+% \input{timings}
+% \input{finite-rings}
+%\section*{Acknowledgements}
+% \bibliographystyle{elsarticle-harv}
+\bibliographystyle{abbrv}
+% sigproc.bib is the name of the Bibliography in this case
+\bibliography{bib}
+% \newpage
+% \appendix
+% \input{syz-example}
+\end{document}
