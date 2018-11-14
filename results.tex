@@ -1,7 +1,7 @@
 \section{Computational results}
 \label{sec:results}
 In this section we present the new implementation for standard basis computation
-over Euclidean domains in \singular $4-1-2$.\footnote{Available in the \singular
+over Euclidean domains in \singular $4-1-2$.\footnote{In the \singular
 sources since git commit 7d2091affbf4b4a1a382e5eb0a47f66c0f3c42f7a.}
 We compare it to the current implementations in the
 computer algebra systems \macaulay (version $1.12$) and \magma (version $2.23$).
@@ -58,7 +58,7 @@ the reduction steps in higher degree are way slower than the linear algebra done
 in \magma. We believe that there are more classes of examples where the linear
 algebra attempt is more efficient than the polynomial arithmetic used in
 \singular, still, we need to investigate this problem in more detail. We can see
-that the F4 algorithm seems to be beneficial also for Mayr-42 and Yang-1.
+that the F4 algorithm seems to be beneficial also for \texttt{Mayr-42} and \texttt{Yang-1}.
 Nevetheless, for most of the other examples considered, \singular is by a
 factor faster than \magma.
 
@@ -70,15 +70,15 @@ to its much higher memory usage, we could not finish most of the examples on the
 given machine. The only example where we have seen a better result was Mayr-42
 where \macaulay's F4 algorithm finished in $185$ seconds, still using way more
 memory than \magma and nearly $10$ times as much as \singular. In the given
-example \singular's new algorithm uses, aside from Cyclic-7, the least memory
+example \singular's new algorithm uses, aside from \texttt{Cyclic-7}, the least memory
 of all compared implementations.
 
 For \singular we can see that generating all possible \spts and \gpts or only
 the ones needed (recall Theorem~\ref{thm:buchberger-criterion}) does not have a
 bigger influence on the computation for most of the examples.
-Still, for the bigger examples like Noon-8 or Katsura-9 we see that applying
+Still, for the bigger examples like \texttt{Noon-8} or \texttt{Katsura-9} we see that applying
 Theorem~\ref{thm:buchberger-criterion} leads to slightly slower computation. In
-Cyclic-7 we can even see a huge impact, the computation slows down by a factor
+\texttt{Cyclic-7} we can even see a huge impact, the computation slows down by a factor
 of more than $3$! It sems that having more pairs available at an earlier stage
 of the algorithm is advantageous compared to having less pairs overall. In most
 of the examples the algorithm taking care of all possible pairs does not even
@@ -89,7 +89,7 @@ considering all possible \spts and \gpts leads to a more stable algorithm.
 We found that the application of Lemma~\ref{lem:m2-replace-trick} becomes
 sometimes a bottleneck. For example, always exchanging $f$ and $g$ by $\spoly
 fg$ and $\gpoly fg$ has a huge drawback in the computation of a basis for
-Cyclic-7, leading to a slow down of a factor of more than $3$. We found
+\texttt{Cyclic-7}, leading to a slow down of a factor of more than $3$. We found
 that overall it is a good heuristic to apply Lemma~\ref{lem:m2-replace-trick} at
 most $5$ times per a single reduction process. The \singular timings in the
 above table correspond exactly this implementation.
