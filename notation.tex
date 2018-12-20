@@ -378,7 +378,7 @@ Theorem~\ref{thm:buchberger-criterion} in Section~\ref{sec:pairs}.
 \State{Choose $h \in P$, $P \gets P \setminus \{h\}$}\label{alg:bba:choose}
 \State {$h \gets \nf h G$}
 \If{$\left(h \neq 0\right)$}
-\State{$P \gets \left\{\spoly{g}{h}, \gpoly{g}{h} \mid g \in
+\State{$P \gets P \cup \left\{\spoly{g}{h}, \gpoly{g}{h} \mid g \in
   G\right\}$}\label{alg:bba:update2}
 \State{$G \gets G \cup \{h\}$}
 \EndIf
