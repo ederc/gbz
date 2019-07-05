@@ -1,0 +1,531 @@
+Dear Christian Eder,
+
+we have considered your submission to the JSC special issue on ISSAC'18.
+Based on the recommendations of the referees, we are pleased to accept
+your manuscript for the special issue. Please prepare the final version
+of your article, taking into account the recommendations of the referee
+reports quoted below, and send all necessary files (latex sources prepared
+in elsart style plus any auxiliary files as needed) to Manuel Kauers
+(manuel@kauers.de) by September 1, 2019. 
+
+Thank you for publishing your work in our special issue.
+
+Best regards,
+Manuel Kauers, Alexey Ovchinnikov, Eric Schost (guest editors)
+
+SUBMISSION: 4
+TITLE: Standard Bases over Euclidean Domains
+
+
+----------------------- REVIEW 1 ---------------------
+SUBMISSION: 4
+TITLE: Standard Bases over Euclidean Domains
+AUTHORS: Christian Eder, Gerhard Pfister and Adrian Popescu
+
+----------- Overall evaluation -----------
+SCORE: 2 (accept)
+----- TEXT:
+Below is adapted from the standard JSC review template.
+
+Referee Info
+------------
+Expertise area : Groebner basis applications, including computing over
+Euclidean domains
+
+
+Judgement
+---------
+  (1 Excellent;  2 Good;  3 Average;  4 Below Average;  5 Poor)
+ 
+  * Relevance to the field of symbolic computation     : 1
+  * Originality (does not apply to tutorial papers)    : 3
+  * Importance, significance and value of contribution : 3
+  * Logical and formal correctness                     : 2
+  * Proper crediting/citing of previous literature     : 1
+  * Clarity, structure and style of presentation       : 2
+  * English grammar/spelling                           : 3
+
+  Recommendation (Accept/Revise/Reject) : accept, with
+minor revisions (see Comments to the authors for details)
+
+
+Comments to the authors
+----------------------
+
+This article discusses comnputation of strong Groebner/standard
+bases over the Euclidean domains (with the proviso that coefficients
+can be totally ordered, e.g. ties can be broken for domains
+where ties can arise). As the authors note, past literature on
+this topic is on the sparse side. Direct Buchberger-style methods
+are mentioned in articles by Buchberger, Kandri-Rody and Kapur,
+Lichtblau, the authors themselves (ISSAC 2017) and a few others.
+This article basically lays out theory similar to that found
+in the3ir Lichtblau 2012 reference, although with some improvements.
+It describes some detailed experiments and comparisons, and
+shows timings that overall are quite good over a range of
+benchmark examples.
+
+The basic ideas are to develop two flavors of S-polynomial, one
+to remove power products and one to reduce coefficient sizes.
+Since the latter is done using GCDs, they are referred to as
+GCD-polynomials (gpoly, for short). This is similar to prior
+literature. A Buchberger-style algorithm is then developed
+albeit extending to handle local and mixed orders of the
+monomials. This uses a method due to Mora, although there
+is a very standard approach, due to Lazard, that will recast
+such orders as global and thus reduce to Groebner (rather
+than more general standard) basis compuations. Perhaps the
+authros will consider making note of this (or providing some
+explanation, e.g. from experiments, to suggest that the Mora
+approach might be more efficient). Next they cover various
+improvements that arise from generalizing Buchberger's
+redundency criteria to the case of Euclidean domains. In the
+process they cover various possible strategies that arise from
+variants of these improvements, noting benefits and disadvantages.
+Several examples are provided that illustrate the main ideas
+quite well.
+
+The theoretical advances over past work, in particular the
+Lichtblau 2012 reference, appear in a few places. Lemma 13 in
+section 3 might be one such (though it seems to be also in the
+Project Euclid version of Lichtblau 2012, first full paragraph
+p. 182, "Also note that when c_1 divides c_2 then
+SPoly_1[p_1, p_2] is simply a power product multiple of p_1...
+[I]n this case it will obviously reduce to zero..." Here
+"SPoly_1"is equivalent to the GCD-Polynomial of the present
+submission.
+
+Lemma 15, which takes Buchberger's chain condition criterion
+to the Euclidean domain setting, provides a clear improvement
+over prior work. The authors cite Lichtblau 2012, but note
+(in a way that is perhaps too polite, hence not easy to
+recognize) that that reference does not handle the full
+generality of their lemma.
+
+Lemma 20, which is specialized to the case of integers as the
+domain, indicates how to take advantage of the case where the
+basis over the rationals is {1}, or, more generally, contains
+monomials. This appears to be a reasonable improvement to
+existing methodologies.
+
+Lemma 24 indicates how it is not actually necessary to reduce
+GCD-polynomials. I believe this is new to the literature. It
+is not of great practical importance because, as the authors
+indicate, one tends to get more useful intermediate polynomials
+by not using this result. All the same, it is (i) new to the theory
+and (ii) the authors went to some trouble to test it out for
+possible practical ramifications, concluding in effect that
+it is impractical. This is a service to the community.
+
+Lemma 26 might also be new. It provides a special case handling,
+which sometimes is useful, for the situation where two polynomials
+share their leading monomial.
+
+While these improvements are not great, they are supplemented
+by discussion of various strategies, backed by very solid
+benchmark testing. Moreover the authors have made these tests
+publicly available, which benefits testing of future methods
+(and is also important for replicability). This aspect of the
+work might even be the most important, although the exposition
+of theory and algorithms in earlier sections certainly has
+some merit.
+
+Based on the above, I will say that this is a sound article.
+It is not at the level of must-publish for JSC, but it clearly
+would be of some benefit to have it in the literature.
+
+The rest of this report involves small issues that the authors
+should address in a revision.
+
+Lemma 13 assumes lc(f) divides lc(g), but it also applies of
+course if the reverse is true. Much earlier, definition 7
+assumed that lc(f) is smaller than or equal to lc(g). If this
+proviso remains in effect, it should be noted explicitly.
+
+-- fixed
+
+There is an issue regarding references to Lichtblau (2012). The
+numbering of theorems cited does not correspond to the published
+version. It seems that there is an internet version other than the
+one at the Project Euclid site cited by the authors. For example,
+top p. 6 says "see Theorem 3" where the actual number appears to
+be 11 (the Illinois Journal of Mathematics apparently uses common
+numbering for all items rather than separate numbering for
+definitions, theorems, lemmas, etc.) I think it would be best
+just to fix the numbering, using the open access version available
+via the Project Euclid URL. If the authors prefer not to go that
+route, maybe a link to the version they use should be provided,
+with explicit note to the effect that a different numbering scheme
+is in use.
+
+-- fixed
+
+There are several typography and related issues, all minor, that
+need to be repaired. Below are the ones I found.
+
+P. 2 lines 13-14 "only a few optimizations
+has been introduced" ("has" should be "have").
+
+-- fixed
+
+P. 3 line -14 "mononmial".
+
+-- fixed
+
+P. 4 line 3 "independetly".
+
+-- fixed
+
+P. 4 line 22 (second line in definition 7) "and." (period
+should not be there).
+
+-- fixed
+
+P. 9 line 4 "Condition 3 lies an emphasis" I recommend
+"lies" be changed to "places".
+
+-- fixed
+
+P. 9 line 5 "genrated".
+
+-- fixed
+
+P. 10 near bottom, Algorithm 4 is named "RationlPreCheck"
+but elsewhere referred to with fully spelled "RationalPreCheck".
+
+-- fixed
+
+P. 12 Table 2 caption refers to Example ??. I suspect this was
+due to a LaTeX labeling mishap.
+
+-- fixed
+
+P. 12 line -11 "momonmial".
+
+-- fixed
+
+P. 14 line 8 "stated in the following. 6 during" (the period
+should not be there).
+
+-- fixed
+
+P. 14 line 21 "determinante".
+
+-- fixed
+
+P. 14 line -2 above footnote "genrated" (maybe just move in that
+extra "e" from "determinante"?)
+
+-- fixed
+
+P. 14 line -1 above footnote "as generator have to adjusted respectively".
+I think that should be worded "as generator have to be adjusted respectively"
+
+-- fixed
+
+P. 15 line 19 "blowi".
+
+-- fixed
+
+P. 17 line 14 "having less pairs overall" ("less", in this
+setting, should actually be "fewer").
+
+-- fixed
+
+P. 18 lines 17-18, the reference by same authors is from ISSAC'2017,
+but names it "Proceedings of the 2011 international symposium..."
+Also I think capitalization should be
+"International Symposium on Symbolic and Algebraic Computation".
+
+-- fixed
+
+
+
+----------------------- REVIEW 2 ---------------------
+SUBMISSION: 4
+TITLE: Standard Bases over Euclidean Domains
+AUTHORS: Christian Eder, Gerhard Pfister and Adrian Popescu
+
+----------- Overall evaluation -----------
+SCORE: 1 (weak accept)
+----- TEXT:
+In this paper, the authors expose a set of techniques which can be
+used to make the computation of standard bases over Euclidean domains,
+typically Z. Their techniques are implemented in Singular and they
+give results showing that their implementation can compete with other
+known implementations.
+
+The authors claim that they "introduce several new optimizations to
+the computation of strong standard bases", but I don't feel that the
+rest of the paper supports that claim:
+
+In Sec. 3, the authors explain how to choose pairs in the
+computations. To this end, they recall criteria due to Buchberger, and
+known generalizations (Lem. 16 and Thm. 17) taking into account
+GCD-polynomials. The only original result of this section appears to
+be Prop. 18, which formalizes that Thm. 17 is indeed a generalization
+of Lem. 14.
+
+In Sec. 4, the authors explain a trick to manage coefficient swell for
+the cases where the ideal contains a constant or a monomial. They
+don't appear to discuss whether this is something which can be
+expected to happen often.
+
+Finally, in Sec. 5, the authors detail how Euclidean reductions of the
+leading coefficient of a polynomial can be efficiently replaced with
+computations of S-polynomials and GCD-polynomials. They mention that
+the idea is already implemented in the software Macaulay2, but that
+the proof is new.
+
+So the only new optimization is the one exposed in Sec. 4, and it is
+not clear whether it is applicable outside of specific cases.
+
+If I'm wrong there, I recommend that the authors substantiate their
+claim to new optimizations throughout the paper.
+
+Otherwise, it would seem that the paper instead presents an survey of
+existing optimizations (with at least one new one) for standard bases
+over Euclidean rings. When necessary (not done in the literature),
+those optimizations are proved, and the paper includes extensive
+discussions on their impact and how and where they should
+be used in practice.
+
+If that's the case, provided that the introduction is revised to make
+its claims fit the contents of the paper, I would recommend accepting
+the paper.
+
+-----
+
+I had other questions when reading the paper:
+
+In Section 2, definition 1, the authors define global, local and mixed
+orders. Is there any algorithm which can compute normal forms or
+standard bases for mixed orders?
+
+In Section 4, the cost of the initial SB computation over Q is
+discussed, but what about the cost of calling syz?
+
+Still in Section 4, would it be possible to use modular computations
+together with this idea? If 1 is in I over Q, then it is also in I 
+modulo a random prime p?
+
+Section 6 compares an implementation of Buchberger's algorithm in
+Singular, and an implementation of the F4 algorithm in Magma. How does
+Singular compare with Magma's implementation of Buchberger's
+algorithm? 
+
+-----
+
+What follows is typos and other comments.
+
+Page 2, footnote 2: fre -> free
+
+Page 3, sentence starting with "Working over more general rings these
+definitions (...)": the end of the sentence can be rephrased.
+
+Page 3, def. 2, item 1: I don't understand why a \neq 0 should be
+equivalent to b \prec lc(f) : take 5 = (-1)*3 + 8, for example.
+
+Same item, mononmial -> monomial
+
+Page 3, def. 2, item 2: Let... ?
+
+Page 4, convention 3: analgous -> analogous
+
+Page 4, footnote 3: "= \mathbb{Z}" should be removed
+
+Page 5, definition 9: "weak normal forms" sounds confusing with the
+other use of the adjective "weak" in "weak standard representation"
+(consistent with the vocabulary of the theory of weak Gröbner
+bases). In the caption of Table 1, you use "local normal form"
+instead. It is probably a typo, but I prefer "local" over "weak" for 
+this generalization of normal forms.
+
+Page 6, algo 2: it should be made clear that it computes a weak (or
+local) normal form, ie u can be nontrivial.
+
+Same algorithm, line 3: T_h should take polynomials from T, not G
+
+I would suggest moving the definition of the ecart closer to this
+algorithm, since it is only used here. It would also be nice to see a
+justification for using the ecart as a criterion in Algo. 2.
+
+Page 6, example 11: I found it useful to unroll the computations and
+obtain the rewriting of h as in Def. 9, item 3:
+   h(1-x+y+x^2) = 2 g_1 - g_2
+
+It helped me understand both Def. 9 and Algo. 2, and in turn why
+Example 10 was correct.
+
+Page 7, remark 12: I suspect that it refers to Ex. 25, but it was not
+at all clear on my first read-through.
+
+Page 8, Algo. 3: aren't GCD-polynomials of reduced polynomials
+reduced? If so, it sounds wasteful to go through step 5 with them.
+
+Page 9, first paragraph, item 1: lies -> lays, genrated -> generated
+
+I don't get the point made in this paragraph. 1 seems to say that "X
+might happen too late", 2 that "X might happen too early", but what
+exactly is desirable? 
+
+Page 9, proof of prop. 18: remove do (or replace with need)
+
+Page 9, 2nd paragraph of Sec. 4: fiels -> fields
+
+Page 10, proof of lemma 20: I don't see the point for all that comes
+between "Consider the free module (...)" and "In other words". The
+sentence starting with "In other words" is just the definition of "1
+\in I".
+
+Page 10, algo. 4: RationlPreCheck -> RationalPreCheck
+
+Page 10, same algo: I would move step 2 to after the test in step 3,
+since I suspect that it can be a costy operation.
+
+Page 11, ex. 21: Table 4 -> Table 2, twice.
+After the first occurrence, add "we" (we give...).
+
+Page 12, caption of Table 2: Example 21.2
+
+Pages 12-13, proof of Lem. 24: I do not understand the proof.  For
+example, how does the first equation of page 13 follow from what's
+before?
+
+In the last paragraph of that proof, what does "reset" h mean?
+
+Page 13, example 25: I feel like a transition or an introduction is
+missing before this example.
+
+Page 14, line 3: Cutting -> cutting
+
+Page 14, the last 2 sentences of the first paragraph are broken.
+
+Page 14, before the definition of M: determinante -> determinant
+
+Page 14, line -5 : BBA -> sBBA
+
+Page 14, line -2: genrated -> generated
+
+Page 14, before remark 27: blowi -> blow
+
+Page 14, after remark 27: BBA -> sBBA
+
+Page 14, item 2 immediately afterwards: Is there are -> Is there
+
+Page 14, Sec. 6, line 2: Singular 4-1-2 (no math mode)
+
+Page 14, footnote 7: Is there another way to refer to this software? A
+numbered release, or an URL? At the very least you could truncate the
+hash to the first 8 characters.
+
+Page 16, table 4: it would be nice to know which (if any) of those
+examples use a local order.
+
+Page 17, before Sec. 7 : *to* this implementation
+
+
+
+----------------------- REVIEW 3 ---------------------
+SUBMISSION: 4
+TITLE: Standard Bases over Euclidean Domains
+AUTHORS: Christian Eder, Gerhard Pfister and Adrian Popescu
+
+----------- Overall evaluation -----------
+SCORE: 2 (accept)
+----- TEXT:
+My overall evaluation is positive, though there are some criticisms for which I would ask the authors for some revisions.
+In particular, my criticisms are about the relation with the works by Pan and the Gebauer-Moeller criteria for S-polynomials.
+
+First of all, Lemma 13 is due to Pan (Th.1.5(b)) and it is stated verbatim in the fourth volume of SPES (Th.46.3.2(4a)).
+The same goes for Theorem 17  (SPES4 Th.46.3.2 (1)<=>(5), appearing in Pan as Theorem 1.5). Those results must therefore be attributed to Pan.
+
+Both the language and the approach used in this paper have been introduced by Pan, generalizing the Euclidean case to the PID case. Most of the results in this paper holds for the PIR case; I suggest to observe it.
+
+In Algorithm 3, lines 2 and 3 use Buchberger’s Chain Criteria, with the negative outcome of making the size of the set P of the pairs to be treated quite huge.
+It would be better if the authors concentrate on Gebauer-Moeller criteria, that are more efficient.
+Indeed, the authors are aware of these criteria, since they quote them. So, I would like to know why they do not use them.
+I suggest the authors to see the deep analysis made by Mora in the slides of the Lecture Notes of the course at the International Workshop on Solving Nonlinear Polynomial Equation, IISc Bangalore June 07--19, 2010 given by Mora, that you can find at
+http://www.dima.unige.it/~morafe/ITCT/BglA.pdf
+http://www.dima.unige.it/~morafe/ITCT/BglB.pdf
+There applying both approaches  
+(File A applies Buchberger criteria, while B applies Gebauer-Moeller criteria).
+to the same enlightening example (SPES Vol 2.Ex 25.2.1) he shows (see the table in page 4 in file B) that the set P contains up to 23 elements using Buchberger criteria while Gebauer-Moeller criteria require to store at most 8 elements; note also that in most of the loops Buchberger criteria require to store at least more than 8 elements!
+
+I suppose that it would be needed a note on a further investigation on of application of Gebauer-Moeller criteria, quoting the original paper and the reformulation given by Mora (SPES Vol 2. 25.2, [CMR])
+
+Minor remarks
+P.2
+lead coefficient/term --> leading
+Euclidean domain without zero divisors---> the absence of zero divisors is included in the word domain
+
+P3
+wrt <: For --> wrt <: for
+
+Let
+3. We say that... --> remove "Let"
+
+
+P.12
+Lemma 24  momonmial --> monomial
+
+P.4.
+and. t_g --> and t_g (no dot)
+
+The definition of S-polynomial is wrongly written; it should be  
+af=a/lc(f)
+ag=a/lc(g)
+
+P.5
+normal form: --> normal form.
+
+P.6
+I think there is something wrong in the way Algorithm 2 is written; please check the role of T and G.
+
+
+P.7
+Lemma 14 Let\\ -->  no \newline
+
+P.9
+Prop 18 proof --> add a space after 17
+
+integers: Example 19 --> integers.
+
+P.11
+Algorithm 4: If --> if
+
+
+P.14
+we have to proof --> we have to prove
+
+genrated --> generated
+
+have to adjusted --> have to be adjusted
+
+P.15
+further reducer --> further reduce
+
+blowi up --> blow up
+
+P.16
+: Our --> : our
+
+Nevetheless--> Nevertheless
+
+P.17
+Euclidean domains with zero divisors --> perhaps you mean Euclidean rings? Domain intrinsically means "without zero divisors"!
+References
+\bibitem{CMR} Ceria, M., Mora, T., & Roggero, M. (2019). {\em A general framework for Noetherian well ordered polynomial reductions} Journal of Symbolic Computation.
+https://doi.org/10.1016/j.jsc.2019.02.002
+
+  \bibitem{SPES}
+ Mora T.,  {\em Solving Polynomial Equation Systems} 4 Vols., Cambridge University
+Press, I (2003), II (2005), III (2015), IV (2016).
+\bibitem{P}
+Pan L.,
+{\em On the D-bases of polynomial ideals over principal ideal domains},
+J. Symb. Comp.
+{\bf 7} (1988),
+55--69
+
+
