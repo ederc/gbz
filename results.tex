@@ -53,7 +53,7 @@ the examples we refer to~\cite{singular-benchmarks}.
 We can see that \singular's new implementation is always faster than \macaulay.
 Comparing it to \magma we see that \magma is way faster for \texttt{Cyclic-7}.
 We assume that this is due to \magma using Faug\`ere's F4
-algorithm~(\cite{fF41999}): Our implementation considers less \spts and \gpts, but
+algorithm~(\cite{fF41999}): Our implementation considers fewer \spts and \gpts, but
 the reduction steps in higher degree are way slower than the linear algebra done
 in \magma. We believe that there are more classes of examples where the linear
 algebra attempt is more efficient than the polynomial arithmetic used in
@@ -80,7 +80,7 @@ Still, for the bigger examples like \texttt{Noon-8} or \texttt{Katsura-9} we see
 Theorem~\ref{thm:buchberger-criterion} leads to slightly slower computation. In
 \texttt{Cyclic-7} we can even see a huge impact, the computation slows down by a factor
 of more than $3$! It sems that having more pairs available at an earlier stage
-of the algorithm is advantageous compared to having less pairs overall. In most
+of the algorithm is advantageous compared to having fewer pairs overall. In most
 of the examples the algorithm taking care of all possible pairs does not even
 compute more reductions, the product and chain criterion removes those
 pairs which are really useless at some later stage. All in all it seems that

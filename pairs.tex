@@ -10,7 +10,7 @@ when new elements for the pair set are generated.
 A first criterion takes care of useless \gpts:
 
 \begin{lemma}
-Let $f,g \in \epr$ such that $\lc f \mid \lc g$. Then $\gpoly f g$ reduces
+Let $f,g \in \epr$ such that $\lc f \mid \lc g$ or $\lc g \mid \lc f$. Then $\gpoly f g$ reduces
 to zero w.r.t. $\{f,g\}$.
 \label{crit:gpoly-easy}
 \end{lemma}
@@ -36,7 +36,7 @@ Then $\spoly f g$ reduces to zero w.r.t. $\{f,g\}$
 
 \begin{proof}
 The proof is the same as in the field case.
-See Theorem~3 in~\cite{lichtblau2012} for more details.
+See Theorem~11 in~\cite{lichtblau2012} for more details.
 \end{proof}
 
 Note that Lemma~\ref{thm:prod-crit} does \emph{not} apply to \gpts. Take, for
@@ -62,7 +62,7 @@ for some coefficients $c_{f,g}, c_{f,h}$ and  some monomials $m_{f,g}, m_{f,h}$.
 Property $(1)$ ensures proper monomial multiples $m_{f,g}$ and $m_{f,h}$.
 Working over the integers we have to take care of the coefficients, too. Thus
 property $(2)$ is needed to ensure the existence of proper multiples $c_{f,g}$
-and $c_{f,h}$. For more details see, for example, the proof of Theorem~4
+and $c_{f,h}$. For more details see, for example, the proof of Theorem~12
 in~\cite{lichtblau2012}: There the statement is proven for a strengthened
 version of property $(2)$, namely $\lc f \mid \lc g \mid \lc h$ resp. $\lc g
 \mid \lc f \mid \lc h$.
@@ -81,17 +81,16 @@ Then $\gpoly g h$ has a strong standard representation w.r.t. $G$.
 \end{lemma}
 
 \begin{proof}
-See Theorem~10.11 in~\cite{bwkGroebnerBases1993} and Theorem~5
+See Theorem~10.11 in~\cite{bwkGroebnerBases1993} and Theorem~13
 in~\cite{lichtblau2012}.
 \end{proof}
 
 Besides these statements one can ``decide'' for two polynomials $f$ and
 $g$ if we need to compute the corresponding \gpt or the corresponding \spt.
 This goes back to~\cite{kapur1988} and can be also found as a variant of
-Buchberger's criterion as Theorem~2 in~\cite{lichtblau2012}.
+Buchberger's criterion as Theorem~10 in~\cite{lichtblau2012}.
 
-\begin{theorem}[Variant of Buchberger's Criterion, Theorem~2
-in~\cite{lichtblau2012}]
+\begin{theorem}[Variant of Buchberger's Criterion]
 Let $G \subset \epr$ be a finite set of polynomials, let $<$ be a monomial order
 on $\epr$. The following are equivalent:
 \begin{enumerate}
@@ -111,9 +110,9 @@ Condition~\ref{cond:all} and Condition~\ref{cond:only} in
 Theorem~\ref{thm:buchberger-criterion} has a huge influence on the computation:
 \begin{enumerate}
 \item Depending the choice of the next element in the pair set in
-Algorithm~\ref{alg:bba} it is obvious that Condition~\ref{cond:only} lies an
+Algorithm~\ref{alg:bba} it is obvious that Condition~\ref{cond:only} places an
 emphasis on \gpts. For a pair of polynomials $f,g\in G$ the algorithm tries to
-keep of the lead coefficient of the genrated polynomial as small as possible.
+keep of the lead coefficient of the generated polynomial as small as possible.
 This process goes on until at some point eventually this smaller lead
 coefficient divides $\lc f$ $\lc g$. Then the corresponding \spt is generated
 which then removes the whole lead term.

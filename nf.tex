@@ -112,11 +112,11 @@ and \gpts with it leads to lower lead coefficients there. In some sense \lcrs ar
 the bridge between an \ltr of $f$ by $g$ and the $\gpoly fg$. In one specific
 situation we can go directly from one to another, without the need of a bridge. 
 Lemma~\ref{lem:ltrs-are-enough} also gives a hint to this situation stated in
-the following.
+the following
+during the reduction process over the integers.
 \footnote{This idea is also implemented in the computer algebra system
 \macaulay. We have discovered it independently and since we have not
 found any proof for the statement we give one here.}
-during the reduction process over the integers.
 \begin{lemma}
 Let $f \in \epr$, $G \subset \epr$ finite and $g\in G$ such that
 $\hm g = \hm f$. Then it holds that
@@ -144,7 +144,7 @@ In order to show the statement we have to proof that $(f,g)$ and $\left(\gpoly f
 \spoly fg\right)$ generate the same $\Z$-lattice. So, in the above
 representation of $\gpoly fg$ and $\spoly fg$ in terms of $f$ and $g$ we have to
 show that the corresponding coefficient matrix is invertible, i.e. has
-determinante $\pm 1 \in \Z$:
+determinant $\pm 1 \in \Z$:
 To see this we set
 \[M := \begin{pmatrix} u & v\\ \frac{\lc g}{d} & -\frac{\lc
   f}{d}\end{pmatrix}.\]
@@ -160,7 +160,7 @@ $\hm f = \hm g$, but $\lc g \nmid \lc f$. In this situation we do a $2$-by-$2$
 replacement:
 \begin{enumerate}
 \item Compute $\gpoly fg$ and replace $g\in G$ by $\gpoly fg \in G$. Clearly,
-already genrated pairs with $g$ as generator have to adjusted respectively.
+already generated pairs with $g$ as generator have to be adjusted respectively.
 \item Compute $\spoly fg$ and replace $f$ by $\spoly fg$. Note that we have not
 changed the degree of $f$, but probably only multiplied $f$ with some
 coefficient. With the newly defined $f$ we again enter the reduction process and
@@ -183,7 +183,7 @@ Even more, using $\gpoly fg$ we are possibly able to render more \spts useless
 applying the chain criterion, due to the smaller lead coefficient.
 \item For $f$ the advantage is that we are not stuck with a \lcr only, but we
 can go on and perform the \ltr $\spoly fg$ and thus directly lower the lead term
-without the need of adding $f$ to the basis, which would blowi up pair
+without the need of adding $f$ to the basis, which would blow up pair
 generation.
 \end{enumerate}
 
