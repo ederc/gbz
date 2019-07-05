@@ -1,7 +1,7 @@
 \section{Computational results}
 \label{sec:results}
 In this section we present the new implementation for standard basis computation
-over Euclidean domains in \singular $4-1-2$.\footnote{In the \singular
+over Euclidean domains in \singular 4-1-2.\footnote{In the \singular
 sources since git commit 7d2091affbf4b4a1a382e5eb0a47f66c0f3c42f7a.}
 We compare it to the current implementations in the
 computer algebra systems \macaulay (version $1.12$) and \magma (version $2.23$).
@@ -47,19 +47,19 @@ the examples we refer to~\cite{singular-benchmarks}.
     \end{tabular}
 	\caption{Benchmark timings given in seconds (``($>24$h)'' means that we have stopped the computation
       after at least $24$ hours.)}
-	\label{table:syz-example}
+	\label{table:gbz-examples}
 \end{table}
 
 We can see that \singular's new implementation is always faster than \macaulay.
 Comparing it to \magma we see that \magma is way faster for \texttt{Cyclic-7}.
 We assume that this is due to \magma using Faug\`ere's F4
-algorithm~(\cite{fF41999}): Our implementation considers fewer \spts and \gpts, but
+algorithm~(\cite{fF41999}). Our implementation considers fewer \spts and \gpts, but
 the reduction steps in higher degree are way slower than the linear algebra done
 in \magma. We believe that there are more classes of examples where the linear
 algebra attempt is more efficient than the polynomial arithmetic used in
 \singular, still, we need to investigate this problem in more detail. We can see
 that the F4 algorithm seems to be beneficial also for \texttt{Mayr-42} and \texttt{Yang-1}.
-Nevetheless, for most of the other examples considered, \singular is by a
+Nevertheless, for most of the other examples considered, \singular is by a
 factor faster than \magma.
 
 In the above table we list timings for \macaulay's Buchberger implementation
@@ -92,4 +92,4 @@ fg$ and $\gpoly fg$ has a huge drawback in the computation of a basis for
 \texttt{Cyclic-7}, leading to a slow down of a factor of more than $3$. We found
 that overall it is a good heuristic to apply Lemma~\ref{lem:m2-replace-trick} at
 most $5$ times per a single reduction process. The \singular timings in the
-above table correspond exactly this implementation.
+above table correspond exactly to this implementation.

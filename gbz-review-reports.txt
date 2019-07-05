@@ -302,17 +302,32 @@ In Section 2, definition 1, the authors define global, local and mixed
 orders. Is there any algorithm which can compute normal forms or
 standard bases for mixed orders?
 
+-- Removed the mixed order definition, not topic of this paper.
+
 In Section 4, the cost of the initial SB computation over Q is
 discussed, but what about the cost of calling syz?
+
+-- It is also negligible, note added to the remark.
 
 Still in Section 4, would it be possible to use modular computations
 together with this idea? If 1 is in I over Q, then it is also in I 
 modulo a random prime p?
 
+-- Yes one can do so.
+
 Section 6 compares an implementation of Buchberger's algorithm in
 Singular, and an implementation of the F4 algorithm in Magma. How does
 Singular compare with Magma's implementation of Buchberger's
 algorithm? 
+
+-- As far as we know, Magma only has an adapted F4 Algorithm implemented for
+computing strong GBs over Euclidean domains, see also the manual entry:
+"Since V2.8 (July 2001), Magma provides facilities for computing with Gröbner
+bases of ideals of polynomial rings over Euclidean rings (including the
+important case of the integer ring Z). Such Gröbner bases are
+computed in Magma by an extension, due to Allan Steel (unpublished), of
+Jean-Charles Faugère's F4 algorithm [Fau99], which uses sparse linear
+algebra."
 
 -----
 
@@ -320,19 +335,33 @@ What follows is typos and other comments.
 
 Page 2, footnote 2: fre -> free
 
+-- fixed
+
 Page 3, sentence starting with "Working over more general rings these
 definitions (...)": the end of the sentence can be rephrased.
+
+-- fixed
 
 Page 3, def. 2, item 1: I don't understand why a \neq 0 should be
 equivalent to b \prec lc(f) : take 5 = (-1)*3 + 8, for example.
 
+-- fixed
+
 Same item, mononmial -> monomial
+
+-- fixed
 
 Page 3, def. 2, item 2: Let... ?
 
+-- fixed
+
 Page 4, convention 3: analgous -> analogous
 
+-- fixed
+
 Page 4, footnote 3: "= \mathbb{Z}" should be removed
+
+-- fixed
 
 Page 5, definition 9: "weak normal forms" sounds confusing with the
 other use of the adjective "weak" in "weak standard representation"
@@ -341,14 +370,23 @@ bases). In the caption of Table 1, you use "local normal form"
 instead. It is probably a typo, but I prefer "local" over "weak" for 
 this generalization of normal forms.
 
+-- Yes, I know, but weak normal form is the standard vocabulary for this kind
+of normal form. I changed the caption correspondingly.
+
 Page 6, algo 2: it should be made clear that it computes a weak (or
 local) normal form, ie u can be nontrivial.
 
+-- fixed
+
 Same algorithm, line 3: T_h should take polynomials from T, not G
+
+-- fixed
 
 I would suggest moving the definition of the ecart closer to this
 algorithm, since it is only used here. It would also be nice to see a
 justification for using the ecart as a criterion in Algo. 2.
+
+-- Fixed; also explained this idea in Example 10.
 
 Page 6, example 11: I found it useful to unroll the computations and
 obtain the rewriting of h as in Def. 9, item 3:
@@ -357,61 +395,111 @@ obtain the rewriting of h as in Def. 9, item 3:
 It helped me understand both Def. 9 and Algo. 2, and in turn why
 Example 10 was correct.
 
+-- Not fixed, but explained Example 10 in more detail
+
 Page 7, remark 12: I suspect that it refers to Ex. 25, but it was not
 at all clear on my first read-through.
+
+-- fixed
 
 Page 8, Algo. 3: aren't GCD-polynomials of reduced polynomials
 reduced? If so, it sounds wasteful to go through step 5 with them.
 
+-- No, since you still might multiply with monomials, so not
+reduced terms might be in the gcd-polynomial.
+
 Page 9, first paragraph, item 1: lies -> lays, genrated -> generated
+
+-- fixed
 
 I don't get the point made in this paragraph. 1 seems to say that "X
 might happen too late", 2 that "X might happen too early", but what
 exactly is desirable? 
 
+-- No it is either X might happen too late or Y might happen too early, no
+test which one is the best choice you can make.
+
 Page 9, proof of prop. 18: remove do (or replace with need)
 
+-- fixed
+
 Page 9, 2nd paragraph of Sec. 4: fiels -> fields
+
+-- fixed
 
 Page 10, proof of lemma 20: I don't see the point for all that comes
 between "Consider the free module (...)" and "In other words". The
 sentence starting with "In other words" is just the definition of "1
 \in I".
 
+-- No, 1 is in \bar{I} but not in I. c is in I.
+
 Page 10, algo. 4: RationlPreCheck -> RationalPreCheck
+
+-- fixed
 
 Page 10, same algo: I would move step 2 to after the test in step 3,
 since I suspect that it can be a costy operation.
 
+-- done, that's how it is implemented
+
 Page 11, ex. 21: Table 4 -> Table 2, twice.
 After the first occurrence, add "we" (we give...).
 
+-- fixed
+
 Page 12, caption of Table 2: Example 21.2
+
+-- fixed
 
 Pages 12-13, proof of Lem. 24: I do not understand the proof.  For
 example, how does the first equation of page 13 follow from what's
 before?
 
+-- we are in the case a =/= 1 so the equality of lead terms is clear when
+applying only lc reductions, as it is explicitly stated in the proof.
+
 In the last paragraph of that proof, what does "reset" h mean?
+
+-- uses "redefine" now
 
 Page 13, example 25: I feel like a transition or an introduction is
 missing before this example.
 
+-- no fix, recalls already example 11 and restates the information
+needed for understanding the computed reduction steps
+
 Page 14, line 3: Cutting -> cutting
+
+-- fixed
 
 Page 14, the last 2 sentences of the first paragraph are broken.
 
+-- don't know what to fix
+
 Page 14, before the definition of M: determinante -> determinant
+
+-- fixed
 
 Page 14, line -5 : BBA -> sBBA
 
+-- fixed
+
 Page 14, line -2: genrated -> generated
+
+-- fixed
 
 Page 14, before remark 27: blowi -> blow
 
+-- fixed
+
 Page 14, after remark 27: BBA -> sBBA
 
+-- fixed
+
 Page 14, item 2 immediately afterwards: Is there are -> Is there
+
+-- fixed
 
 Page 14, Sec. 6, line 2: Singular 4-1-2 (no math mode)
 
@@ -419,10 +507,17 @@ Page 14, footnote 7: Is there another way to refer to this software? A
 numbered release, or an URL? At the very least you could truncate the
 hash to the first 8 characters.
 
+-- no fix
+
 Page 16, table 4: it would be nice to know which (if any) of those
 examples use a local order.
 
+-- "All examples are computed with respect to the degree reverse
+lexicographical order." on page 15.
+
 Page 17, before Sec. 7 : *to* this implementation
+
+-- fixed
 
 
 
@@ -459,61 +554,100 @@ P.2
 lead coefficient/term --> leading
 Euclidean domain without zero divisors---> the absence of zero divisors is included in the word domain
 
+-- domain fixed, lead stays
+
 P3
 wrt <: For --> wrt <: for
+
+-- fixed
 
 Let
 3. We say that... --> remove "Let"
 
+-- fixed
 
 P.12
 Lemma 24  momonmial --> monomial
 
+-- fixed
+
 P.4.
 and. t_g --> and t_g (no dot)
+
+-- fixed
 
 The definition of S-polynomial is wrongly written; it should be  
 af=a/lc(f)
 ag=a/lc(g)
 
+-- fixed
+
 P.5
 normal form: --> normal form.
 
+-- fixed
+
 P.6
 I think there is something wrong in the way Algorithm 2 is written; please check the role of T and G.
+
+-- fixed
 
 
 P.7
 Lemma 14 Let\\ -->  no \newline
 
+-- fixed
+
 P.9
 Prop 18 proof --> add a space after 17
 
+-- fixed
+
 integers: Example 19 --> integers.
+
+-- fixed
 
 P.11
 Algorithm 4: If --> if
 
+-- don't know what to fix
 
 P.14
 we have to proof --> we have to prove
 
+-- fixed
+
 genrated --> generated
 
+-- fixed
+
 have to adjusted --> have to be adjusted
+
+-- fixed
 
 P.15
 further reducer --> further reduce
 
+-- fixed
+
 blowi up --> blow up
+
+-- fixed
 
 P.16
 : Our --> : our
 
+-- fixed
+
 Nevetheless--> Nevertheless
+
+-- fixed
 
 P.17
 Euclidean domains with zero divisors --> perhaps you mean Euclidean rings? Domain intrinsically means "without zero divisors"!
+
+-- fixed
+
 References
 \bibitem{CMR} Ceria, M., Mora, T., & Roggero, M. (2019). {\em A general framework for Noetherian well ordered polynomial reductions} Journal of Symbolic Computation.
 https://doi.org/10.1016/j.jsc.2019.02.002

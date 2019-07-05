@@ -51,7 +51,7 @@ for some $c' \in \Z$ and $t' \in \epr$. Since $\hm h = \hm{tg} = \hm{t'g'}$ we
 conclude that $ctg + c't'g'$ corresponds to a multiple of either $\spoly
 {g}{g'}$ or $\gpoly {g}{g'}$ depending on divisibility of $\lc g$ and $\lc{g'}$.
 Nonetheless, once we have a standard representation for $\spoly{g}{g'}$ or
-$\gpoly{g}{g'}$ we can reset $h$ by $h - ctg - c't'g'$. Either the lead term or
+$\gpoly{g}{g'}$ we can redefine $h$ by $h - ctg - c't'g'$. Either the lead term or
 the lead coefficient of $h$ increases in this process. Thus after finitely many
 steps this process terminates and we reach either case~(\ref{first-case}) or
 there is no further \lcr reduction possible.
@@ -64,6 +64,7 @@ over $\Z$ was only thought of as a slight generalization of the computation
 over fields.
 
 \begin{example}
+\label{ex:local-nf}
 Recall Example~\ref{ex:local-order} from Section~\ref{sec:notation}: If we
 allow only \ltrs when reducing $h = 4+x$ w.r.t. the strong \stb $G = \left\{2-x+y+x^2,
 x-2y-x^2-xy-x^3\right\}$ then we get the following reduction table with $T_h =
@@ -106,7 +107,7 @@ theoretical point of view, not needed. A \lcr corresponds
 to a first step in the Euclidean algorithm when calculating $\gcd\left(\lc f, \lc
 g\right)$ which will be done in the algorithm when considering $\gpoly fg$.
 Still, it has a strong impact on the performance of the algorithm in practice:
-Cutting the lead coefficient down as much as possible means that the element
+cutting the lead coefficient down as much as possible means that the element
 might be used more often for reduction purposes. Moreover, generating new \spts
 and \gpts with it leads to lower lead coefficients there. In some sense \lcrs are
 the bridge between an \ltr of $f$ by $g$ and the $\gpoly fg$. In one specific
@@ -140,7 +141,7 @@ $
 \end{array}
 $
 \end{center}
-In order to show the statement we have to proof that $(f,g)$ and $\left(\gpoly fg,
+In order to show the statement we have to prove that $(f,g)$ and $\left(\gpoly fg,
 \spoly fg\right)$ generate the same $\Z$-lattice. So, in the above
 representation of $\gpoly fg$ and $\spoly fg$ in terms of $f$ and $g$ we have to
 show that the corresponding coefficient matrix is invertible, i.e. has
@@ -154,7 +155,7 @@ Finally, we compute
   \stackrel{(\ref{eq:gcd})}{=} -1.\]
 \end{proof}
 
-How to use Lemma~\ref{lem:m2-replace-trick} in \bba ? The idea is that whenever
+How to use Lemma~\ref{lem:m2-replace-trick} in \sbba ? The idea is that whenever
 we reduce a new element $f$ we check if there exists a reducer $g\in G$ with
 $\hm f = \hm g$, but $\lc g \nmid \lc f$. In this situation we do a $2$-by-$2$
 replacement:
@@ -164,7 +165,7 @@ already generated pairs with $g$ as generator have to be adjusted respectively.
 \item Compute $\spoly fg$ and replace $f$ by $\spoly fg$. Note that we have not
 changed the degree of $f$, but probably only multiplied $f$ with some
 coefficient. With the newly defined $f$ we again enter the reduction process and
-see, if we can further reducer it.
+see, if we can further reduce it.
 \end{enumerate}
 This has two main advantages to the usual reduction process that would compute
 only an \lcr of $f$ w.r.t. $g$:
@@ -210,7 +211,7 @@ longer able to recover $g$.
 \end{enumerate}
 \end{remark}
 
-When we enter the reduction process of an element $f$ in \bba we search for
+When we enter the reduction process of an element $f$ in \sbba we search for
 reducers in the following order:
 \begin{enumerate}
 \item Is there $g \in G$ for a \ltr of $f$? If so we can cut down the lead

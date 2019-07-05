@@ -1,8 +1,8 @@
 \section{Basic notations}
 \label{sec:notation}
 % We use notation corresponding to~\cite{eder-faugere-2016}:
-Let \er be a Euclidean domain without zero divisors.\footnote{The reader can
-    feel fre to think of $\er = \Z$.}
+Let \er be a Euclidean domain.\footnote{The reader can
+    feel free to think of $\er = \Z$.}
 % Besides Section~\ref{sec:finite-rings} we assume that \er has no
 % zero divisors.
 A \emph{polynomial}
@@ -48,8 +48,8 @@ Let $<$ denote a monomial order on \epr.
 \begin{enumerate}
 \item $<$ is called \emph{global} if $x^\alpha \geq 1$ for all $\alpha \in \N^n$.
 \item $<$ is called \emph{local} if $x^\alpha \leq 1$ for all $\alpha \in \N^n$.
-\item Moreover, we call $<$ \emph{mixed} if there exist $\alpha, \beta \in \N^n$ such
-that $x^\alpha \leq 1 \leq x^\beta$.
+% \item Moreover, we call $<$ \emph{mixed} if there exist $\alpha, \beta \in \N^n$ such
+% that $x^\alpha \leq 1 \leq x^\beta$.
 \end{enumerate}
 \end{definition}
 % \begin{convention}
@@ -62,7 +62,7 @@ that $x^\alpha \leq 1 \leq x^\beta$.
 %   lexicographical order} on \epr.
 % \end{convention}
 Given such a monomial order $<$ we can highlight the maximal terms of
-elements in \epr w.r.t. $<$: For $f\in \epr\ \backslash\ \{0\}$,
+elements in \epr w.r.t. $<$: for $f\in \epr\ \backslash\ \{0\}$,
 $\hd f$ is the \emph{lead term}, $\hm f$ the \emph{lead monomial}, and $\lc f$
 the \emph{lead coefficient} of $f$. For any set $F \subset \epr$ we define
 the \emph{lead ideal} $L(F) = \langle \hd f \mid f \in F\rangle$; for an ideal
@@ -82,7 +82,7 @@ Working over a field there are many equivalent definitions of how to obtain a
 canonical or normal form when reducing a given polynomial by a Gr\"obner basis $G$.
 Working over more general rings these definitions are no longer equivalent and
 over Euclidean domains, like the integers, this, in particular, results in the term
-of \emph{strong}ness we give a meaning in the following:
+of being ``strong'', see Definition~\ref{def:strong-sb}:
 
 Assuming that our coefficient ring \er is an Euclidean domain we can define a total
 order $\prec$ using the Euclidean norm $|\cdot|$ of its elements: Let $\const_1, \const_2
@@ -102,7 +102,7 @@ polynomials.
 \begin{enumerate}
 \item We say that \emph{$g$ top-reduces $f$} if $\hm g \mid \hm f$ and if there exist
 $a,b \in \er$ such that $\lc f = a\, \lc g +b$ such
-that $a \neq 0$, which coincides with $b \prec \lc f$. The top-reduction of $f$
+that $a \neq 0$ and $b \prec \lc f$. The top-reduction of $f$
 by $g$ is then given by
 \[f - a \frac{\hm f}{\hm g} g.\]
 So a top-reduction takes place if the reduced polynomial will have either a smaller lead
@@ -110,7 +110,6 @@ monomial or a smaller lead coefficient.
 \item Relaxing the reduction of the lead term to any term of $f$, we say
 that \emph{$g$ reduces $f$}. In general, we speak of the reduction of a
 polynomial $f$ w.r.t. a finite set $F\subset \epr$.
-Let 
 \item We say that $f$ has a \emph{weak standard representation} w.r.t. $G$ if
 $f = \sum_{i=1}^r h_i g_i$ for some $h_i \in \epr$ such that $\hm f = \hm{h_j
   g_j}$ for some $j \in \{1,\ldots,r\}$.
@@ -132,7 +131,7 @@ the naming convention in this paper:
 Note that the term \emph{\gb} was introduced by Buchberger in 1965 for bases
 w.r.t. a global monomial order (\cite{bGroebner1965, bGroebner1965eng}). Independently, Hironaka
 (\cite{hironaka11964, hironaka21964}), and, again
-independently, Grauert (\cite{grauert1972}), developed an analgous
+independently, Grauert (\cite{grauert1972}), developed an analogous
 concept, called \emph{\stb}, for multivariate power series, i.e. for polynomial
 rings equipped with a local monomial order. For this paper we decided to use
 the notion \emph{\stb} since it is nowadays the more general one.
@@ -177,11 +176,11 @@ Let $f,g \in \epr$. We assume w.l.o.g. that $\lc f \prec \lc g$.
 Let $t = \lcm\left(\hm f, \hm g\right)$, $t_f = \frac{t}{\hm f}$, and $t_g = \frac{t}{\hm
   g}$.
 \begin{enumerate}
-\item Let $a = \lcm\left(\lc f, \lc g\right)$, $a_f = \frac{a}{\lc g},$ and $a_g =
-\frac{a}{\lc f}$. The \emph{\spt} of $f$ and $g$ is denoted 
+\item Let $a = \lcm\left(\lc f, \lc g\right)$, $a_f = \frac{a}{\lc f},$ and $a_g =
+\frac{a}{\lc g}$. The \emph{\spt} of $f$ and $g$ is denoted 
 \[\spoly f g = a_f t_f f - a_g t_g g.\]
 \item Let $b = \gcd\left(\lc f, \lc g\right)$ . Choose $b_f, b_g \in \er$ such that $b = b_f \lc f + b_g \lc
-g$.\footnote{Since $\er = \Z$ is an Euclidean ring the extended gcd always exists.}
+g$.\footnote{Since $\er$ is an Euclidean ring the extended gcd always exists.}
 The \emph{\gpt} of $f$ and $g$ is denoted 
 \[\gpoly f g = b_f t_f f + b_g t_g g.\]
 \end{enumerate}
@@ -219,7 +218,7 @@ algorithm over the integers. Here, no criterion for detecting useless elements
 is applied. This is the topic of the next section. But what is necessary to
 discuss beforehand is how to get strong standard representations of elements
 handled by Algorithm~\ref{alg:bba}. This is the concept of a \emph{normal
-form}:
+form}.
 
 \begin{definition}
 Let $<$ be a monomial order on $\epr$.
@@ -274,6 +273,7 @@ to local monomial orders. Let us illustrate this behaviour with the ``standard''
 example. 
 
 \begin{example}
+\label{ex:local-problems}
 Let $\epr = K[x]$ where $K$ is a field. We equip $\epr$ with a local monomial
 order $<$, i.e. $x < 1$. We set $G = \{g\}$ where $g=x-x^2$ and we want to
 compute $\nf f G$ where $f = x$. Using Algorithm~\ref{alg:nfg} we start setting
@@ -286,10 +286,17 @@ $x - \left(\sum_{i=0}^\infty x^i\right) \left(x-x^2\right) = 0.$
 Since $x<1$ we know that $\sum_{i=0}^\infty x^i = \frac{1}{1-x}$. We see that
 Algorithm~\ref{alg:nfg} computes correctly since $(1-x) x = x-x^2$,
 still, it is not able to find the finite expression of the power series.
+The main fact is, that Algorithm~\ref{alg:nfg} does not take into account the
+ecart of the polynomials: $\ecart f = 0$ whereas $\ecart g = 1$. Thus, once we
+reduce $f$ by $g$ the generated $h = x^2$ has $\ecart h = 0$, but the degree grows.
+If we would be able to reduce $h$ not only by $g$, but also by the
+initial $f=x$, then we could terminate the reduction process: $h - xf = x^2 -
+x\cdot x = 0$. All in all, we would get the desired representation $(1-x)x = x-x^2$.
 \end{example}
 
 In~\cite{mora82} Mora gave the first attempt to achieve a terminating normal
-form algorithm also for local monomial orders:
+form algorithm also for local monomial orders taking into account the ecart
+of the reducer polynomials:
 
 \begin{algorithm}[h]
 \caption{Mora's normal form algorithm w.r.t. a local monomial order $<$
@@ -300,7 +307,7 @@ form algorithm also for local monomial orders:
 \Ensure{\nfn of $f$ w.r.t. $G$ and $<$}
 \State{$h \gets f$}
 \State{$T \gets G$}
-\While{$\left(h \neq 0 \text{ and }T_h := \{g \in G \mid g \text{ top-reduces } h\}
+\While{$\left(h \neq 0 \text{ and }T_h := \{g \in T \mid g \text{ top-reduces } h\}
   \neq\emptyset\right)$}
 \State{Choose $g \in T_h$ with $\ecart g$ minimal.}
 \If{$\left(\ecart g > \ecart h\right)$}
@@ -312,6 +319,10 @@ form algorithm also for local monomial orders:
 \State{$\text{\textbf{return }}h$}
 \end{algorithmic}
 \end{algorithm}
+
+Note that Algorithm~\ref{alg:nfl} in general computes a weak normal form for
+$f$, i.e. $u$ might not be trivial. See $u = 1-x$ in
+Example~\ref{ex:local-problems}.
 
 \begin{example}
 \label{ex:local-order}
@@ -345,7 +356,7 @@ G$.
     $0$ & - & -\\
     \bottomrule
     \end{tabular}
-	\caption{Local normal form computation due to Mora}
+	\caption{Weak normal form computation due to Mora}
 	\label{table:infinite-nf}
 \end{table}
 
@@ -357,7 +368,7 @@ reduction process would not terminate.
 Sometimes it can be more efficient to not only add the current status of $h$ to
 $T_h$ as a new reducer, but also to generate \gpts with $h$. Doing so,
 several lead coefficient reductions may be done in one step. See
-Section~\ref{sec:nf} for more details.
+Example~\ref{ex:local-nf} in Section~\ref{sec:nf} for more details.
 \end{remark}
 Now we are ready to state Buchberger's algorithm. For the theoretical background
 of the algorithm (Buchberger's criterion) we refer to
