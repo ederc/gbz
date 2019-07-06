@@ -535,6 +535,8 @@ In particular, my criticisms are about the relation with the works by Pan and th
 First of all, Lemma 13 is due to Pan (Th.1.5(b)) and it is stated verbatim in the fourth volume of SPES (Th.46.3.2(4a)).
 The same goes for Theorem 17  (SPES4 Th.46.3.2 (1)<=>(5), appearing in Pan as Theorem 1.5). Those results must therefore be attributed to Pan.
 
+-- added citations for pan and the mora references
+
 Both the language and the approach used in this paper have been introduced by Pan, generalizing the Euclidean case to the PID case. Most of the results in this paper holds for the PIR case; I suggest to observe it.
 
 In Algorithm 3, lines 2 and 3 use Buchberger’s Chain Criteria, with the negative outcome of making the size of the set P of the pairs to be treated quite huge.
@@ -548,6 +550,9 @@ There applying both approaches
 to the same enlightening example (SPES Vol 2.Ex 25.2.1) he shows (see the table in page 4 in file B) that the set P contains up to 23 elements using Buchberger criteria while Gebauer-Moeller criteria require to store at most 8 elements; note also that in most of the loops Buchberger criteria require to store at least more than 8 elements!
 
 I suppose that it would be needed a note on a further investigation on of application of Gebauer-Moeller criteria, quoting the original paper and the reformulation given by Mora (SPES Vol 2. 25.2, [CMR])
+
+-- added a note that we are doing so already, citing gebauer-moeller and the
+mora references
 
 Minor remarks
 P.2

@@ -7,9 +7,9 @@ The criteria presented in the following are then applied to
 Algorithm~\ref{alg:bba} in lines~\ref{alg:bba:update1} and~\ref{alg:bba:update2}
 when new elements for the pair set are generated.
 
-A first criterion takes care of useless \gpts:
+A first criterion takes care of useless \gpts and goes back to Pan:
 
-\begin{lemma}
+\begin{lemma}[\cite{PAN1989}]
 Let $f,g \in \epr$ such that $\lc f \mid \lc g$ or $\lc g \mid \lc f$. Then $\gpoly f g$ reduces
 to zero w.r.t. $\{f,g\}$.
 \label{crit:gpoly-easy}
@@ -87,8 +87,9 @@ in~\cite{lichtblau2012}.
 
 Besides these statements one can ``decide'' for two polynomials $f$ and
 $g$ if we need to compute the corresponding \gpt or the corresponding \spt.
-This goes back to~\cite{kapur1988} and can be also found as a variant of
-Buchberger's criterion as Theorem~10 in~\cite{lichtblau2012}.
+This goes back to~\cite{kapur1988} and~\cite{PAN1989} and can be also found as a variant of
+Buchberger's criterion as Theorem~10 in~\cite{lichtblau2012} resp.
+in~\cite{mora_2016}.
 
 \begin{theorem}[Variant of Buchberger's Criterion]
 Let $G \subset \epr$ be a finite set of polynomials, let $<$ be a monomial order
@@ -144,4 +145,8 @@ in the other situations, but there no \spt is generated at all.
 
 We have implemented Buchberger's algorithm with both variants of Buchberger's
 criterion in \singular. In Section~\ref{sec:results} we present more detailed
-results.
+results. Note that in both cases we implemented the criteria to remove useless
+pairs in the vein of the Gebauer-M\"oller installation,
+we refer to~\cite{gmInstallation1988} as well as
+its reformulation in~\cite{mora_2005} resp.~\cite{CERIA2019} for more
+details.
